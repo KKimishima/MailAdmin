@@ -13,8 +13,8 @@ public class App extends Application{
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-    Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
-    primaryStage.setTitle("プロジェクトテスト");
+    Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginView.fxml"));
+    primaryStage.setTitle("メールアドレス管理");
     Scene scene = new Scene(root);
     primaryStage.setScene(scene);
     primaryStage.show();
