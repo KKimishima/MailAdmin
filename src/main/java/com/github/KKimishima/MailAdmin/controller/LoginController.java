@@ -1,15 +1,18 @@
 package com.github.KKimishima.MailAdmin.controller;
 
 import com.github.KKimishima.MailAdmin.app.App;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import sun.applet.Main;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
 
-public class MainController {
+public class LoginController {
   // instance(シングルトン)
-  private static MainController instance;
+  private static LoginController instance;
   // scenes(シングルトン)
   private static Scene SCENE;
 
@@ -17,7 +20,7 @@ public class MainController {
   // クラスが読み込まれ時に実行
   // コンストラクタより早く実行される
   static {
-    FXMLLoader fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("fxml/MainView.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("fxml/LoginView.fxml"));
     try{
       fxmlLoader.load();
     }catch (IOException e){
@@ -29,14 +32,15 @@ public class MainController {
     instance = fxmlLoader.getController();
   }
   // instance(シングルトン)を返す
-  public static MainController getInstance(){
+  public static LoginController getInstance(){
     return instance;
   }
   // 表示する
   public void show(){
     App.presentStage.setScene(SCENE);
   }
-  public void onRegister(){
-    System.out.println("登録ボタンが押されました");
+  @FXML
+  public void onLogin(){
+    MainController.getInstance().show();
   }
 }
