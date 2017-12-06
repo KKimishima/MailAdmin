@@ -1,20 +1,33 @@
 package com.github.KKimishima.MailAdmin.controller;
 
 import com.github.KKimishima.MailAdmin.app.App;
+import com.github.KKimishima.MailAdmin.model.loginModel.LoginADO;
+import com.github.KKimishima.MailAdmin.model.loginModel.LoginModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import sun.applet.Main;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
 
 public class LoginController {
+  LoginModel loginModel = new LoginADO();
   // instance(シングルトン)
   private static LoginController instance;
   // scenes(シングルトン)
   private static Scene SCENE;
+
+  // データのバインディング
+  @FXML
+  TextField userIDTex;
+  @FXML
+  TextField userPassTex;
+  @FXML
+  Text LoginFailTex;
 
   // 画面生成
   // クラスが読み込まれ時に実行
@@ -41,6 +54,12 @@ public class LoginController {
   }
   @FXML
   public void onLogin(){
-    MainController.getInstance().show();
+    if (loginModel.loginCheck(userIDTex.getText(),userPassTex.getText())){
+      MainController.getInstance().show();
+    }else{
+      userIDTex.clear();
+      userPassTex.clear();
+      LoginFailTex.setText("ログイン失敗");
+    }
   }
 }
