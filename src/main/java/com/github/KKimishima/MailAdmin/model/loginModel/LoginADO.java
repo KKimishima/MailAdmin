@@ -1,10 +1,16 @@
-package com.github.KKimishima.MailAdmin.model;
+package com.github.KKimishima.MailAdmin.model.loginModel;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.sql.*;
 
-public class JdbcTest {
-  public boolean sqlCheck(){
+public class LoginADO implements LoginModel{
+
+  public boolean loginCheck(String userID,String userPass){
+
     Connection con = null;
     PreparedStatement  smt = null;
     ResultSet  rs  = null;
@@ -15,12 +21,12 @@ public class JdbcTest {
     }
 
     try {
-      String jdbcStr = "jdbc:sqlite:" + getClass().getResource("/db/db.sqlite3").getPath();
-      con = DriverManager.getConnection(jdbcStr);
+      con = DriverManager.getConnection("jdbc:sqlite::resource:db/db.sqlite3");
       smt = con.prepareStatement(
-              "select * from loginUser where pass = ?;"
+          "select * from loginUser where userID = ? and pass = ?"
       );
-      smt.setString(1,"hoeghoge");
+      smt.setString(1,userID);
+      smt.setString(2,userPass);
       rs = smt.executeQuery();
       if(rs.next()){
         return true;
