@@ -1,0 +1,52 @@
+@startuml
+package "メール管理システム" {
+    entity "ログインユーザ" as loginUser {
+        + id [PK]
+        ----
+        userID
+        UserName
+        pass
+    }
+    entity "勤務地" as location{
+        + locatitonID [PK]
+        ---
+        lovcationName
+    }
+    entity "メールアドレス" as maillAddress{
+        + maillAddressID[PK]
+        ---
+        address
+        # syainID[FK]
+    }
+    entity "社員情報" as syainInfo{
+        + syainID
+        ---
+        syainName
+        kinmu
+        yalusyoku
+        # locatinID[FK]
+    }
+    entity "登録進行状況" as statusRegiser{
+        + statusID
+        ---
+        statusName
+        bikou
+    }
+    entity "登録情報" as regiseter{
+        + registerID[PK]
+        ----
+        # id[FK]
+        # syainID[FK]
+        # statusID[FK]
+         timeStamp
+
+    }
+
+    maillAddress }o--r-o| syainInfo
+    syainInfo |o-ri-o{ location
+    regiseter |o-ri-o{ loginUser
+    regiseter |o-l-o{ statusRegiser
+    regiseter |o--o{ syainInfo
+
+}
+@enduml
