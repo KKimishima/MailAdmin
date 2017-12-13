@@ -16,15 +16,21 @@ package "メール管理システム" {
         + maillAddressID[PK]
         ---
         address
-        # syainID[FK]
+    }
+    entity "役職" as position{
+        + positionID
+        ---
+        positionName
     }
     entity "社員情報" as syainInfo{
         + syainID
         ---
         syainName
-        kinmu
-        yalusyoku
         # locatinID[FK]
+        # primariyAddressID[FK]
+        # subAddressID[FK]
+        # maillAdress[FK]
+        # positionID[FK]
     }
     entity "登録進行状況" as statusRegiser{
         + statusID
@@ -39,10 +45,10 @@ package "メール管理システム" {
         # syainID[FK]
         # statusID[FK]
          timeStamp
-
     }
 
-    maillAddress }o--r-o| syainInfo
+    maillAddress }o-u-o| syainInfo
+    syainInfo |o--l-o{ position
     syainInfo |o-ri-o{ location
     regiseter |o-ri-o{ loginUser
     regiseter |o-l-o{ statusRegiser
