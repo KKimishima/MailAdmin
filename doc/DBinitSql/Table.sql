@@ -56,27 +56,31 @@ insert into statusRegister(statusRegisterID,statusName) values(3,"登録完了")
     * 複合キーテーブル
     8件
     メールアドレス
-    primaryAddressID    アドレスの基準ID   数値  主キー,null禁止
-    maillAddressID      追加するアドレスID 数値  主キー,null禁止
-    address テキスト null禁止
+    primaryAddressID    アドレスの基準ID   数値      主キー,null禁止
+    maillAddressID      追加するアドレスID 数値      主キー,null禁止
+    address             メールアドレス     テキスト null禁止
+    regiserID           登録情報の外部キー テキスト  外部キー,null禁止
+
 */
 -- メールアドレス
 create table maillAddress(
     primaryAddressID integer not null,
     secondaryAddressID text not null,
     address text not null,
-    primary key (primaryAddressID,secondaryAddressID)
+    registerID integer  not null,
+    primary key (primaryAddressID,secondaryAddressID),
+    foreign key (registerID) references register(registerID)
 );
 
 --- テストメールアドレス
-insert into maillAddress(primaryAddressID,secondaryAddressID,address) values(1,1,"hogehoge@hogehoge.com");
-insert into maillAddress(primaryAddressID,secondaryAddressID,address) values(2,1,"foofoo@foofoo.com");
-insert into maillAddress(primaryAddressID,secondaryAddressID,address) values(3,1,"barbar@barbar.com");
-insert into maillAddress(primaryAddressID,secondaryAddressID,address) values(4,1,"poapoa@poopoo.com");
-insert into maillAddress(primaryAddressID,secondaryAddressID,address) values(4,2,"poapoa2@poopoo.com");
-insert into maillAddress(primaryAddressID,secondaryAddressID,address) values(5,1,"bakabaka@bakabaka.com");
-insert into maillAddress(primaryAddressID,secondaryAddressID,address) values(6,1,"poopoo@poopoo.com");
-insert into maillAddress(primaryAddressID,secondaryAddressID,address) values(6,2,"poopoo@poopoo.com");
+insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(1,1,"hogehoge@hogehoge.com",1);
+insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(2,1,"foofoo@foofoo.com",2);
+insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(3,1,"barbar@barbar.com",3);
+insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(4,1,"poapoa@poopoo.com",4);
+insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(4,2,"poapoa2@poopoo.com",5);
+insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(5,1,"bakabaka@bakabaka.com",6);
+insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(6,1,"poopoo@poopoo.com",7);
+insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(6,2,"poopoo@poopoo.com",8);
 
 /*
     役職
@@ -118,17 +122,33 @@ create table syainInfo(
 -- osaka,barbar@..1
 insert into syainInfo(syainID,syainName,locationID,primariyAddressID,positionID) values("11111","hogehoge",1,1,1);
 insert into syainInfo(syainID,syainName,locationID,primariyAddressID,positionID) values("11112","foofoo",2,2,2);
-insert into syainInfo(syainID,syainName,locationID,primariyAddressID,positionID) values("11113","barbar",3,1,3);
-insert into syainInfo(syainID,syainName,locationID,primariyAddressID,positionID) values("11114","poapoa",1,1,4);
+insert into syainInfo(syainID,syainName,locationID,primariyAddressID,positionID) values("11113","barbar",3,3,1);
+insert into syainInfo(syainID,syainName,locationID,primariyAddressID,positionID) values("11114","poapoa",1,4,2);
 
 
-/* -- 作業テーブル
-create table register(
-    userID, -- 登録ユーザ
-    syainID --社員番号
-    maillAddressID --メールアドレスID
-    statusRegisterID --進行状況
-    locationID -- 勤務地あて
-    TIMESTAMP
-)
+/*
+    登録状態
+    registerID      登録ID       数値       主キー,null禁止
+    userID          登録ユーザ   数値        外部キー,null禁止
+    registerTime    登録日時     テキスト   タイムスタプ,null禁止
+    statusRegisterID登録状態     数値        外部キー,null禁止
+    bikou           備考         テキスト    nullあり
+
 */
+create table register(
+    registerID  integer primary key not null,
+    userID      integer not null,
+    statusRegisterID integer not null,
+    registerTime text not null,
+    bikou       text,
+    foreign key (userID) references loginUser(id),
+    foreign key (statusRegisterID) references statusRegister(statusRegisterID)
+);
+
+insert into register(registerID,userID,statusRegisterID,bikou,registerTime) values(1,1,1,"一番目",datetime('now', 'localtime'));
+insert into register(registerID,userID,statusRegisterID,bikou,registerTime) values(2,2,2,"二番目",datetime('now', 'localtime'));
+insert into register(registerID,userID,statusRegisterID,bikou,registerTime) values(3,3,3,"三番目",datetime('now', 'localtime'));
+insert into register(registerID,userID,statusRegisterID,registerTime) values(4,2,1,datetime('now', 'localtime'));
+insert into register(registerID,userID,statusRegisterID,bikou,registerTime) values(5,2,1,"五番目",datetime('now', 'localtime'));
+insert into register(registerID,userID,statusRegisterID,registerTime) values(6,1,2,datetime('now', 'localtime'));
+
