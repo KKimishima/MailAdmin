@@ -65,22 +65,20 @@ insert into statusRegister(statusRegisterID,statusName) values(3,"登録完了")
 -- メールアドレス
 create table maillAddress(
     primaryAddressID integer not null,
-    secondaryAddressID text not null,
     address text not null,
     registerID integer  not null,
-    primary key (primaryAddressID,secondaryAddressID),
-    foreign key (registerID) references register(registerID)
+    syainID integer not null,
+    primary key (primaryAddressID),
+    foreign key (registerID) references register(registerID),
+    foreign key (syainID) references syainInfo(syainID)
 );
 
 --- テストメールアドレス
-insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(1,1,"hogehoge@hogehoge.com",1);
-insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(2,1,"foofoo@foofoo.com",2);
-insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(3,1,"barbar@barbar.com",3);
-insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(4,1,"poapoa@poopoo.com",4);
-insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(4,2,"poapoa2@poopoo.com",5);
-insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(5,1,"bakabaka@bakabaka.com",6);
-insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(6,1,"poopoo@poopoo.com",7);
-insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerid) values(6,2,"poopoo@poopoo.com",8);
+insert into maillAddress(primaryAddressID,address,registerid,syainID) values(1,"hogehoge@hogehoge.com",1,"11111");
+insert into maillAddress(primaryAddressID,address,registerid,syainID) values(2,"foofoo@foofoo.com",2,"11112");
+insert into maillAddress(primaryAddressID,address,registerid,syainID) values(3,"barbar@barbar.com",3,"11113");
+insert into maillAddress(primaryAddressID,address,registerid,syainID) values(4,"poapoa@poopoo.com",4,"11114");
+insert into maillAddress(primaryAddressID,address,registerid,syainID) values(5,"poapoa2@poopoo.com",5,"11114");
 
 /*
     役職
@@ -111,19 +109,17 @@ create table syainInfo(
     syainID text primary key not null,
     syainName text not null,
     locationID integer not null,
-    primariyAddressID integer not null,
     positionID integer not null,
     foreign key (locationID) references location(locationID),
-    foreign key (primariyAddressID) references maillAddres(primariyAddressID),
     foreign key (positionID) references position(positionID)
 );
 -- "11111","hogehoge",tokyo,hogehoge@...,,"なし"一般
 -- "11112","foofoo",osaka,foofoo@..,,管理職
 -- osaka,barbar@..1
-insert into syainInfo(syainID,syainName,locationID,primariyAddressID,positionID) values("11111","hogehoge",1,1,1);
-insert into syainInfo(syainID,syainName,locationID,primariyAddressID,positionID) values("11112","foofoo",2,2,2);
-insert into syainInfo(syainID,syainName,locationID,primariyAddressID,positionID) values("11113","barbar",3,3,1);
-insert into syainInfo(syainID,syainName,locationID,primariyAddressID,positionID) values("11114","poapoa",1,4,2);
+insert into syainInfo(syainID,syainName,locationID,positionID) values("11111","hogehoge",1,1);
+insert into syainInfo(syainID,syainName,locationID,positionID) values("11112","foofoo",2,2);
+insert into syainInfo(syainID,syainName,locationID,positionID) values("11113","barbar",3,1);
+insert into syainInfo(syainID,syainName,locationID,positionID) values("11114","poapoa",1,1);
 
 
 /*
@@ -150,5 +146,4 @@ insert into register(registerID,userID,statusRegisterID,bikou,registerTime) valu
 insert into register(registerID,userID,statusRegisterID,bikou,registerTime) values(3,3,3,"三番目",datetime('now', 'localtime'));
 insert into register(registerID,userID,statusRegisterID,registerTime) values(4,2,1,datetime('now', 'localtime'));
 insert into register(registerID,userID,statusRegisterID,bikou,registerTime) values(5,2,1,"五番目",datetime('now', 'localtime'));
-insert into register(registerID,userID,statusRegisterID,registerTime) values(6,1,2,datetime('now', 'localtime'));
 
