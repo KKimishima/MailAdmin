@@ -1,3 +1,4 @@
+
 -- テーブル全体表示
 select * from syainInfo ;
 
@@ -25,7 +26,7 @@ select  * from "syainInfo"
     on  "syainInfo"."locationID" = location."locationID";
 
 -- 複数のテーブルを内部結合
-select "syainID","syinaName","address","locationName",positionName
+select "syainID","syianName","address","locationName",positionName
 from "syainInfo"
 inner join location
 on syainInfo.locationID = location."locationID"
@@ -34,16 +35,13 @@ on "syainInfo"."primariAddressID" = "maillAddress"."maillAddressID"
 inner join position
 on "syainInfo"."positionID" = position."positionID";
 
--- 一つのテーブルから２つのカラム
-select "syainID","syinaName","address","address","locationName",positionName
---select "syainID","syinaName","address","locationName",positionName
+-- 一必要な情報取得
+select "syainID","syainName","address","locationName",positionName
+-- select *
 from "syainInfo"
 inner join location
     on syainInfo.locationID = location."locationID"
-inner join "maillAddress" as address1
-    on "syainInfo"."primariAddressID" = address1."maillAddressID"
-    --or "syainInfo"."subAddressID" = "maillAddress".address
---inner join "maillAddress" as address2
---    on "syainInfo"."subAddressID" = address2."maillAddressID"
+inner join "maillAddress"
+    on "syainInfo"."primariyAddressID" = "maillAddress"."primaryAddressID"
 inner join position
     on "syainInfo"."positionID" = position."positionID";
