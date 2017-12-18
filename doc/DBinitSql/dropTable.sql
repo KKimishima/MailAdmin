@@ -1,3 +1,4 @@
+
 drop table loginUser;
 drop table location;
 drop table statusRegister;
