@@ -10,13 +10,13 @@ create table loginUser(
     id integer primary key AUTOINCREMENT NOT NULL,
     userID text not null,
     userName text not null,
-    pass text not null
+    passWord text not null
 );
 
 -- テストユーザ
-insert into loginUser(userID,userName,pass) values("0000","admin","hogehoge");
-insert into loginUser(userID,userName,pass) values("0001","user1","foofoo");
-insert into loginUser(userID,userName,pass) values("0000","user2","barbar");
+insert into loginUser(userID,userName,passWord) values("0000","admin","PassAdmin");
+insert into loginUser(userID,userName,passWord) values("0001","user1","PassUser1");
+insert into loginUser(userID,userName,passWord) values("0002","user2","PassUser2");
 
 -- 勤務地テーブル
 /*
@@ -65,20 +65,19 @@ insert into statusRegister(statusRegisterID,statusName) values(3,"登録完了")
 -- メールアドレス
 create table maillAddress(
     primaryAddressID integer not null,
+    secondaryAddressID integer not null,
     address text not null,
     registerID integer  not null,
-    syainID integer not null,
-    primary key (primaryAddressID),
-    foreign key (registerID) references register(registerID),
-    foreign key (syainID) references syainInfo(syainID)
+    primary key (primaryAddressID,secondaryAddressID),
+    foreign key (registerID) references register(registerID)
 );
 
 --- テストメールアドレス
-insert into maillAddress(primaryAddressID,address,registerid,syainID) values(1,"hogehoge@hogehoge.com",1,"11111");
-insert into maillAddress(primaryAddressID,address,registerid,syainID) values(2,"foofoo@foofoo.com",2,"11112");
-insert into maillAddress(primaryAddressID,address,registerid,syainID) values(3,"barbar@barbar.com",3,"11113");
-insert into maillAddress(primaryAddressID,address,registerid,syainID) values(4,"poapoa@poopoo.com",4,"11114");
-insert into maillAddress(primaryAddressID,address,registerid,syainID) values(5,"poapoa2@poopoo.com",5,"11114");
+insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerID) values(1,1,"hogehoge@hogehoge.com",1);
+insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerID) values(2,1,"foofoo@foofoo.com",2);
+insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerID) values(3,1,"barbar@barbar.com",3);
+insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerID) values(4,1,"poapoa@poopoo.com",4);
+insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerID) values(4,2,"poapoa2@poopoo.com",5);
 
 /*
     役職
@@ -110,16 +109,18 @@ create table syainInfo(
     syainName text not null,
     locationID integer not null,
     positionID integer not null,
+    primaryAddressID text not null,
     foreign key (locationID) references location(locationID),
-    foreign key (positionID) references position(positionID)
+    foreign key (positionID) references position(positionID),
+    foreign key (primaryAddressID) references maillAddress(primaryAddressID)
 );
 -- "11111","hogehoge",tokyo,hogehoge@...,,"なし"一般
 -- "11112","foofoo",osaka,foofoo@..,,管理職
 -- osaka,barbar@..1
-insert into syainInfo(syainID,syainName,locationID,positionID) values("11111","hogehoge",1,1);
-insert into syainInfo(syainID,syainName,locationID,positionID) values("11112","foofoo",2,2);
-insert into syainInfo(syainID,syainName,locationID,positionID) values("11113","barbar",3,1);
-insert into syainInfo(syainID,syainName,locationID,positionID) values("11114","poapoa",1,1);
+insert into syainInfo(syainID,syainName,locationID,positionID,primaryAddressID) values("11111","hogehoge",1,1,1);
+insert into syainInfo(syainID,syainName,locationID,positionID,primaryAddressID) values("11112","foofoo",2,2,2);
+insert into syainInfo(syainID,syainName,locationID,positionID,primaryAddressID) values("11113","barbar",3,1,3);
+insert into syainInfo(syainID,syainName,locationID,positionID,primaryAddressID) values("11114","poapoa",1,1,4);
 
 
 /*

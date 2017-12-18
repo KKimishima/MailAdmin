@@ -14,10 +14,10 @@ package "メール管理システム" {
     }
     entity "メールアドレス" as maillAddress{
         + primaryAddressID[PK]
+        + secondaryAddressID[PK]
         ---
         address
         # registerID[FK]
-        # syinID[FK]
     }
     entity "役職" as position{
         + positionID
@@ -28,6 +28,7 @@ package "メール管理システム" {
         + syainID
         ---
         syainName
+        # primaryAddressID[PK]
         # locatinID[FK]
         # positionID[FK]
     }
