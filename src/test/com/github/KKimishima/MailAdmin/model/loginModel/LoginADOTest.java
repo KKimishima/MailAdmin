@@ -13,7 +13,7 @@ public class LoginADOTest {
   public void loginCheckTestユーザIDとユーザPassを与えて成功させる() throws Exception {
     LoginADO loginADO = new LoginADO();
     String userID = "0000";
-    String userPass = "hogehoge";
+    String userPass = "PassAdmin";
     assertEquals(true,loginADO.loginCheck(userID,userPass));
   }
   @Test
