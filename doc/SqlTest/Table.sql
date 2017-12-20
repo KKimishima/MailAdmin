@@ -1,9 +1,10 @@
 -- テーブルの作成
 /*
     ログイン用テーブル作成
-    id      連番番号     数値  主キー,連番,null禁止
-    userID  ログイン用ID テキスト    null禁止
-    pass    パスワード   テキスト    null禁止
+    id      連番番号     数値  主キー,連番,null禁止    変更禁止
+    userID  ログイン用ID テキスト    null禁止          変更禁止
+    userID  ユーザ名     テキスト    null禁止          基本,変更禁止
+    pass    パスワード   テキスト    null禁止          基本,変更禁止
 */
 
 create table loginUser(
@@ -21,8 +22,8 @@ insert into loginUser(userID,userName,passWord) values("0002","user2","PassUser2
 -- 勤務地テーブル
 /*
     勤務地テーブル
-    locationID      勤務地ID   数値      主キー,null禁止
-    locationNmae    勤務地名   テキスト  null禁止
+    locationID      勤務地ID   数値      主キー,null禁止  変更禁止
+    locationNmae    勤務地名   テキスト  null禁止         基本,変更禁止
 */
 create table location(
     locationID integer primary key not null,
@@ -38,8 +39,8 @@ insert into location(locationID,locationName) values(5,"shizuoka");
 
 /*
     登録進行状況
-    statusRegisterID    登録進行状態ID    数値    数値 主キー,null禁止
-    statusName          進行状態名称      テキスト null禁止
+    statusRegisterID    登録進行状態ID    数値    数値 主キー,null禁止 変更禁止
+    statusName          進行状態名称      テキスト null禁止            基本,変更禁止
 */
 -- 登録進行状況
 create table statusRegister(
@@ -56,10 +57,10 @@ insert into statusRegister(statusRegisterID,statusName) values(3,"登録完了")
     * 複合キーテーブル
     8件
     メールアドレス
-    primaryAddressID    アドレスの基準ID   数値      主キー,null禁止
-    maillAddressID      追加するアドレスID 数値      主キー,null禁止
-    address             メールアドレス     テキスト null禁止
-    regiserID           登録情報の外部キー テキスト  外部キー,null禁止
+    primaryAddressID    アドレスの基準ID   数値      主キー,null禁止  変更禁止
+    maillAddressID      追加するアドレスID 数値      主キー,null禁止  変更禁止
+    address             メールアドレス     テキスト null禁止          変更OK
+    regiserID           登録情報の外部キー テキスト  外部キー,null禁止 変更OK
 
 */
 -- メールアドレス
@@ -81,27 +82,26 @@ insert into maillAddress(primaryAddressID,secondaryAddressID,address,registerID)
 
 /*
     役職
-    positionID 数値 主キー、null禁止
-    positionName テキスト null禁止
+    positionID 数値 主キー、null禁止    変更禁止
+    positionName テキスト null禁止      基本,変更禁止
 */
 -- 役職
-
 create table position(
   positionID integer primary key not null,
   positionName text not null
 );
-
+-- テスト役職
 insert into position(positionID,positionName) values(1,"一般職")
 insert into position(positionID,positionName) values(2,"管理職")
 
 /*
     社員情報
-    syainID  テキスト 主キー,null禁止
-    syainName  テキスト null禁止
-    locacitonID 数値 null禁止 外部locationテーブル参照
-    prinariyAdressID 数値 null禁止 外部maillAddressテーブル参照
-    subAdressID 数値 nullあり 外部maillAddressテーブル参照
-    position 数値 null禁止
+    syainID  テキスト 主キー,null禁止                          変更禁止
+    syainName  テキスト null禁止                               変更禁止
+    locacitonID 数値 null禁止 外部locationテーブル参照          変更OK
+    prinariyAdressID 数値 null禁止 外部maillAddressテーブル参照 変更OK
+    subAdressID 数値 nullあり 外部maillAddressテーブル参照      変更OK
+    position 数値 null禁止                                     変更OK
 */
 -- 社員番号ユーザ
 create table syainInfo(
@@ -124,16 +124,17 @@ insert into syainInfo(syainID,syainName,locationID,positionID,primaryAddressID) 
 
 
 /*
+    登録作業が起きるたびにレコードを追加してく
     登録状態
-    registerID      登録ID       数値       主キー,null禁止
-    userID          登録ユーザ   数値        外部キー,null禁止
-    registerTime    登録日時     テキスト   タイムスタプ,null禁止
-    statusRegisterID登録状態     数値        外部キー,null禁止
-    bikou           備考         テキスト    nullあり
+    registerID      登録ID       数値       主キー,null禁止,自動採番     変更禁止
+    userID          登録ユーザ   数値        外部キー,null禁止           変更禁止
+    registerTime    登録日時     テキスト   タイムスタプ,null禁止        変更禁止
+    statusRegisterID登録状態     数値        外部キー,null禁止           変更禁止
+    bikou           備考         テキスト    nullあり                   変更禁止
 
 */
 create table register(
-    registerID  integer primary key not null,
+    registerID  integer primary key AUTOINCREMENT  not null ,
     userID      integer not null,
     statusRegisterID integer not null,
     registerTime text not null,
@@ -142,9 +143,9 @@ create table register(
     foreign key (statusRegisterID) references statusRegister(statusRegisterID)
 );
 
-insert into register(registerID,userID,statusRegisterID,bikou,registerTime) values(1,1,1,"一番目",datetime('now', 'localtime'));
-insert into register(registerID,userID,statusRegisterID,bikou,registerTime) values(2,2,2,"二番目",datetime('now', 'localtime'));
-insert into register(registerID,userID,statusRegisterID,bikou,registerTime) values(3,3,3,"三番目",datetime('now', 'localtime'));
-insert into register(registerID,userID,statusRegisterID,registerTime) values(4,2,1,datetime('now', 'localtime'));
-insert into register(registerID,userID,statusRegisterID,bikou,registerTime) values(5,2,1,"五番目",datetime('now', 'localtime'));
+insert into register(userID,statusRegisterID,bikou,registerTime) values(1,1,"一番目",datetime('now', 'localtime'));
+insert into register(userID,statusRegisterID,bikou,registerTime) values(2,2,"二番目",datetime('now', 'localtime'));
+insert into register(userID,statusRegisterID,bikou,registerTime) values(3,3,"三番目",datetime('now', 'localtime'));
+insert into register(userID,statusRegisterID,registerTime) values(2,1,datetime('now', 'localtime'));
+insert into register(userID,statusRegisterID,bikou,registerTime) values(2,1,"五番目",datetime('now', 'localtime'));
 
