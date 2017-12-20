@@ -2,12 +2,14 @@ package com.github.KKimishima.MailAdmin.controller;
 
 import com.github.KKimishima.MailAdmin.app.App;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable{
   // instance(シングルトン)
   private static MainController instance;
   // scenes(シングルトン)
@@ -28,6 +30,13 @@ public class MainController {
     SCENE = scene;
     instance = fxmlLoader.getController();
   }
+
+  @Override
+  public void initialize(URL url, ResourceBundle rb) {
+    System.out.println("初期化実行");
+
+  }
+
   // instance(シングルトン)を返す
   public static MainController getInstance(){
     return instance;
