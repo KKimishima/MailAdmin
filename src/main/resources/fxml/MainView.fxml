@@ -2,30 +2,34 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="556.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.KKimishima.MailAdmin.controller.MainController">
+<AnchorPane prefHeight="663.0" prefWidth="727.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.KKimishima.MailAdmin.controller.MainController">
    <children>
-      <Text layoutX="222.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="メール管理システムメイン" />
-      <TreeTableView layoutX="8.0" layoutY="80.0" prefHeight="222.0" prefWidth="584.0">
+      <Text layoutX="286.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="メール管理システムメイン" />
+      <TableView fx:id="infoView" layoutX="55.0" layoutY="71.0" prefHeight="339.0" prefWidth="618.0">
         <columns>
-          <TreeTableColumn prefWidth="75.0" text="C1" />
-          <TreeTableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="syainIDColumn" prefWidth="69.0" text="社員番号" />
+          <TableColumn fx:id="syainNameColumn" prefWidth="64.0" text="社員名" />
+            <TableColumn fx:id="addressColumn" prefWidth="167.0" text="メールアドレス" />
+            <TableColumn fx:id="registerColumn" prefWidth="134.0" text="更新日時" />
+            <TableColumn fx:id="statusColumn" prefWidth="83.0" text="登録状態" />
+            <TableColumn fx:id="UserNameColumn" prefWidth="100.0" text="登録者" />
         </columns>
-      </TreeTableView>
-      <Text layoutX="42.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="名前" />
-      <Text layoutX="29.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" text="アドレス" />
-      <TextField layoutX="95.0" layoutY="373.0" />
-      <TextField layoutX="95.0" layoutY="429.0" />
-      <Button layoutX="496.0" layoutY="489.0" mnemonicParsing="false" onAction="#onRegister" text="登録" />
-      <ComboBox layoutX="95.0" layoutY="327.0" prefHeight="27.0" prefWidth="67.0" />
-      <Text layoutX="300.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="勤務地" />
-      <ComboBox layoutX="356.0" layoutY="426.0" prefWidth="150.0" />
-      <ComboBox layoutX="356.0" layoutY="373.0" prefWidth="150.0" />
-      <Text layoutX="287.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ステータス" />
+      </TableView>
+      <Text layoutX="42.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" text="名前" />
+      <Text layoutX="29.0" layoutY="577.0" strokeType="OUTSIDE" strokeWidth="0.0" text="アドレス" />
+      <TextField layoutX="95.0" layoutY="489.0" />
+      <TextField layoutX="95.0" layoutY="559.0" />
+      <Button layoutX="651.0" layoutY="586.0" mnemonicParsing="false" onAction="#onRegister" text="登録" />
+      <ComboBox layoutX="95.0" layoutY="435.0" prefHeight="27.0" prefWidth="67.0" />
+      <Text layoutX="313.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" text="勤務地" />
+      <ComboBox layoutX="367.0" layoutY="559.0" prefWidth="150.0" />
+      <ComboBox layoutX="376.0" layoutY="489.0" prefWidth="150.0" />
+      <Text layoutX="287.0" layoutY="584.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ステータス" />
    </children>
 </AnchorPane>

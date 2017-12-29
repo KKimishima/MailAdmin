@@ -23,7 +23,7 @@ public class LoginADO implements LoginModel{
     try {
       con = DriverManager.getConnection("jdbc:sqlite::resource:db/db.sqlite3");
       smt = con.prepareStatement(
-          "select * from loginUser where userID = ? and pass = ?"
+          "select * from loginUser where userID = ? and passWord = ?"
       );
       smt.setString(1,userID);
       smt.setString(2,userPass);
