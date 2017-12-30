@@ -14,6 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -41,6 +43,14 @@ public class MainController implements Initializable{
   private TableColumn<ViewRecord,String> statusColumn;
   @FXML
   private TableColumn<ViewRecord,String> UserNameColumn;
+  @FXML
+  private TableColumn<ViewRecord,String> bikouColumn;
+  @FXML
+  private TextField addressTex;
+  @FXML
+  private TextField nameTex;
+  @FXML
+  private TextArea bikouTex;
 
   private ObservableList<ViewRecord> data;
 
@@ -79,6 +89,15 @@ public class MainController implements Initializable{
     statusColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("statusCol"));
     UserNameColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("UserNameCol"));
 
+    infoView.getSelectionModel().selectedItemProperty().addListener((observable,oldVal,newVal) ->{
+      //nullが出たら脱出
+      if (newVal == null){return;}
+      addressTex.setText(newVal.getAddressCol());
+      nameTex.setText(newVal.getSyainNameCol());
+      bikouTex.setText(newVal.getBikouCol());
+
+
+    });
     for (SelectItem s:list) {
       infoView.getItems().add(new ViewRecord(
           s.getSyainID(),
@@ -86,7 +105,8 @@ public class MainController implements Initializable{
           s.getAddress(),
           s.getRegisterTime(),
           s.getStatusName(),
-          s.getUserName()
+          s.getUserName(),
+          s.getBikou()
       ));
     }
     //infoView.getItems().add(new ViewRecord(,));
