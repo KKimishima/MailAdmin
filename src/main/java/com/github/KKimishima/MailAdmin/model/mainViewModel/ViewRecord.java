@@ -5,9 +5,11 @@ public class ViewRecord {
   private String  syainNameCol;
   private String  addressCol;
   private String  registerCol;
+  private String  positonCol;
   private String  statusCol;
   private String  UserNameCol;
   private String  bikouCol;
+  private String  locationCol;
 
   public ViewRecord(
       String syainIDCol,
@@ -16,7 +18,9 @@ public class ViewRecord {
       String registerCol,
       String statusCol,
       String UserNameCol,
-      String bikouCol
+      String bikouCol,
+      String locationCol,
+      String positonCol
       ){
     this.syainIDCol = syainIDCol;
     this.syainNameCol = syainNameCol;
@@ -25,6 +29,16 @@ public class ViewRecord {
     this.statusCol = statusCol;
     this.UserNameCol = UserNameCol;
     this.bikouCol = bikouCol;
+    this.locationCol = locationCol;
+    this.positonCol = positonCol;
+  }
+
+  public void setPositonCol(String positonCol) {
+    this.positonCol = positonCol;
+  }
+
+  public void setLocationCol(String locationCol) {
+    this.locationCol = locationCol;
   }
 
   public void setBikouCol(String bikouCol) {
@@ -81,5 +95,13 @@ public class ViewRecord {
 
   public String getBikouCol() {
     return bikouCol;
+  }
+
+  public String getLocationCol() {
+    return locationCol;
+  }
+
+  public String getPositonCol() {
+    return positonCol;
   }
 }

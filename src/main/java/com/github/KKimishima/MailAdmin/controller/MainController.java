@@ -1,10 +1,7 @@
 package com.github.KKimishima.MailAdmin.controller;
 
 import com.github.KKimishima.MailAdmin.app.App;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.MainInfoADO;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.MainViewModel;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.SelectItem;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.ViewRecord;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,11 +9,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,17 +39,23 @@ public class MainController implements Initializable{
   @FXML
   private TableColumn<ViewRecord,String> UserNameColumn;
   @FXML
-  private TableColumn<ViewRecord,String> bikouColumn;
+  private Text syainIDTex;
   @FXML
   private TextField addressTex;
   @FXML
   private TextField nameTex;
   @FXML
   private TextArea bikouTex;
+  @FXML
+  private ComboBox<String> locationCom;
+  @FXML
+  private ComboBox<String> statusCom;
+  @FXML
+  private ComboBox<String> UserNameCom;
+  @FXML
+  private ComboBox<String> positionCom;
 
   private ObservableList<ViewRecord> data;
-
-
   private MainViewModel mainViewModel;
   private ArrayList<SelectItem> list;
 
@@ -92,11 +93,14 @@ public class MainController implements Initializable{
     infoView.getSelectionModel().selectedItemProperty().addListener((observable,oldVal,newVal) ->{
       //nullが出たら脱出
       if (newVal == null){return;}
+      syainIDTex.setText(newVal.getSyainIDCol());
       addressTex.setText(newVal.getAddressCol());
       nameTex.setText(newVal.getSyainNameCol());
       bikouTex.setText(newVal.getBikouCol());
-
-
+      locationCom.setValue(newVal.getLocationCol());
+      statusCom.setValue(newVal.getStatusCol());
+      UserNameCom.setValue(newVal.getUserNameCol());
+      positionCom.setValue(newVal.getPositonCol());
     });
     for (SelectItem s:list) {
       infoView.getItems().add(new ViewRecord(
@@ -106,11 +110,15 @@ public class MainController implements Initializable{
           s.getRegisterTime(),
           s.getStatusName(),
           s.getUserName(),
-          s.getBikou()
+          s.getBikou(),
+          s.getLocationName(),
+          s.getPositionName()
       ));
     }
-    //infoView.getItems().add(new ViewRecord(,));
-
+    ArrayList<String> a = new ArrayList<>();
+    a.add("test1");
+    a.add("test2");
+    locationCom.getItems().addAll(a);
   }
 
   // instance(シングルトン)を返す
