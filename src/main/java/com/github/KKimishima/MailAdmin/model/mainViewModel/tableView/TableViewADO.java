@@ -1,18 +1,15 @@
-package com.github.KKimishima.MailAdmin.model.mainViewModel;
+package com.github.KKimishima.MailAdmin.model.mainViewModel.tableView;
 
+import com.github.KKimishima.MailAdmin.model.mainViewModel.MainViewModel;
 import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.SelectItem;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class MainInfoADO implements MainViewModel{
-  private ArrayList<SelectItem> list;
+public class TableViewADO implements MainViewModel {
 
-  public MainInfoADO(){
-    list = new ArrayList<SelectItem>();
-  }
-
-  public void select() {
+  public ArrayList<SelectItem> selectTableView() {
+    ArrayList<SelectItem> list = new ArrayList<>();
     try{
       Class.forName("org.sqlite.JDBC");
     }catch (ClassNotFoundException e){
@@ -88,15 +85,6 @@ public class MainInfoADO implements MainViewModel{
         }catch (SQLException e){}
       }
     }
-  }
-
-  @Override
-  public ArrayList<SelectItem> get() {
     return list;
-  }
-
-  @Override
-  public void Clean(){
-    list = null;
   }
 }
