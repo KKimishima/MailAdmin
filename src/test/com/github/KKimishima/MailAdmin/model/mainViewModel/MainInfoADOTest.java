@@ -1,5 +1,6 @@
 package com.github.KKimishima.MailAdmin.model.mainViewModel;
 
+import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.SelectItem;
 import org.junit.Test;
 
 import java.util.ArrayList;
