@@ -5,6 +5,7 @@ import com.github.KKimishima.MailAdmin.model.loginModel.LoginADO;
 import com.github.KKimishima.MailAdmin.model.loginModel.LoginModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
@@ -12,10 +13,12 @@ import javafx.scene.text.Text;
 import sun.applet.Main;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.PreparedStatement;
+import java.util.ResourceBundle;
 
 public class LoginController {
-  LoginModel loginModel = new LoginADO();
+  LoginModel loginModel;
   // instance(シングルトン)
   private static LoginController instance;
   // scenes(シングルトン)
@@ -44,6 +47,7 @@ public class LoginController {
     SCENE = scene;
     instance = fxmlLoader.getController();
   }
+
   // instance(シングルトン)を返す
   public static LoginController getInstance(){
     return instance;
@@ -54,9 +58,11 @@ public class LoginController {
   }
   @FXML
   public void onLogin(){
-    if (loginModel.loginCheck(userIDTex.getText(),userPassTex.getText())){
+    loginModel = new LoginADO(userIDTex.getText(),userPassTex.getText());
+    if (loginModel.loginCheck()){
       MainController.getInstance().show();
     }else{
+      loginModel = null;
       userIDTex.clear();
       userPassTex.clear();
       LoginFailTex.setText("ログイン失敗");

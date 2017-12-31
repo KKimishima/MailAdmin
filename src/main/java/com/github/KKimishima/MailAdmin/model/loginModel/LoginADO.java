@@ -8,8 +8,27 @@ import java.net.URL;
 import java.sql.*;
 
 public class LoginADO implements LoginModel{
+  private static String userID;
+  private String userPass;
 
-  public boolean loginCheck(String userID,String userPass){
+  public LoginADO(String userID,String userPass){
+    this.userID = userID;
+    this.userPass = userPass;
+  }
+
+  //@Override
+  public static String getUserID() {
+    return userID;
+  }
+
+  @Override
+  public void cleanLogin(){
+    userID =null;
+    userPass = null;
+  }
+
+  @Override
+  public boolean loginCheck(){
 
     Connection con = null;
     PreparedStatement  smt = null;

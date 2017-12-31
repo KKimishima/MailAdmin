@@ -1,10 +1,13 @@
 package com.github.KKimishima.MailAdmin.controller;
 
 import com.github.KKimishima.MailAdmin.app.App;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.MainInfoADO;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.MainViewModel;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.SelectItem;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.ViewRecord;
+import com.github.KKimishima.MailAdmin.model.loginModel.LoginADO;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.*;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.ComboBox.ComboData;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.ComboBox.ComboDataADO;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.SelectItem;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.TableViewADO;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.ViewRecord;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,9 +15,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,10 +44,26 @@ public class MainController implements Initializable{
   private TableColumn<ViewRecord,String> statusColumn;
   @FXML
   private TableColumn<ViewRecord,String> UserNameColumn;
+  @FXML
+  private Text loginUserTex;
+  @FXML
+  private Text syainIDTex;
+  @FXML
+  private TextField addressTex;
+  @FXML
+  private TextField nameTex;
+  @FXML
+  private TextArea bikouTex;
+  @FXML
+  private ComboBox<String> locationCom;
+  @FXML
+  private ComboBox<String> statusCom;
+  @FXML
+  private Text UserNameTex;
+  @FXML
+  private ComboBox<String> positionCom;
 
   private ObservableList<ViewRecord> data;
-
-
   private MainViewModel mainViewModel;
   private ArrayList<SelectItem> list;
 
@@ -66,9 +85,9 @@ public class MainController implements Initializable{
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    mainViewModel = new MainInfoADO();
-    mainViewModel.select();
-    list = mainViewModel.get();
+    loginUserTex.setText(LoginADO.getUserID());
+    mainViewModel = new TableViewADO();
+    list = mainViewModel.selectTableView();
 
     data = FXCollections.observableArrayList();
     infoView.setItems(data);
@@ -79,6 +98,19 @@ public class MainController implements Initializable{
     statusColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("statusCol"));
     UserNameColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("UserNameCol"));
 
+    infoView.getSelectionModel().selectedItemProperty().addListener((observable,oldVal,newVal) ->{
+      //nullが出たら脱出
+      if (newVal == null){return;}
+      syainIDTex.setText(newVal.getSyainIDCol());
+      addressTex.setText(newVal.getAddressCol());
+      nameTex.setText(newVal.getSyainNameCol());
+      bikouTex.setText(newVal.getBikouCol());
+      locationCom.setValue(newVal.getLocationCol());
+      statusCom.setValue(newVal.getStatusCol());
+      UserNameTex.setText(newVal.getUserNameCol());
+      positionCom.setValue(newVal.getPositonCol());
+
+    });
     for (SelectItem s:list) {
       infoView.getItems().add(new ViewRecord(
           s.getSyainID(),
@@ -86,11 +118,14 @@ public class MainController implements Initializable{
           s.getAddress(),
           s.getRegisterTime(),
           s.getStatusName(),
-          s.getUserName()
+          s.getUserName(),
+          s.getBikou(),
+          s.getLocationName(),
+          s.getPositionName()
       ));
     }
-    //infoView.getItems().add(new ViewRecord(,));
-
+    ComboDataADO comboDataADO = new ComboDataADO();
+    locationCom.getItems().addAll(comboDataADO.selectLocation());
   }
 
   // instance(シングルトン)を返す
