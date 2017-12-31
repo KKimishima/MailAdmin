@@ -1,6 +1,7 @@
 package com.github.KKimishima.MailAdmin.controller;
 
 import com.github.KKimishima.MailAdmin.app.App;
+import com.github.KKimishima.MailAdmin.model.loginModel.LoginADO;
 import com.github.KKimishima.MailAdmin.model.mainViewModel.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,6 +40,8 @@ public class MainController implements Initializable{
   @FXML
   private TableColumn<ViewRecord,String> UserNameColumn;
   @FXML
+  private Text loginUserTex;
+  @FXML
   private Text syainIDTex;
   @FXML
   private TextField addressTex;
@@ -51,7 +54,7 @@ public class MainController implements Initializable{
   @FXML
   private ComboBox<String> statusCom;
   @FXML
-  private ComboBox<String> UserNameCom;
+  private Text UserNameTex;
   @FXML
   private ComboBox<String> positionCom;
 
@@ -77,6 +80,7 @@ public class MainController implements Initializable{
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
+    loginUserTex.setText(LoginADO.getUserID());
     mainViewModel = new MainInfoADO();
     mainViewModel.select();
     list = mainViewModel.get();
@@ -99,8 +103,9 @@ public class MainController implements Initializable{
       bikouTex.setText(newVal.getBikouCol());
       locationCom.setValue(newVal.getLocationCol());
       statusCom.setValue(newVal.getStatusCol());
-      UserNameCom.setValue(newVal.getUserNameCol());
+      UserNameTex.setText(newVal.getUserNameCol());
       positionCom.setValue(newVal.getPositonCol());
+
     });
     for (SelectItem s:list) {
       infoView.getItems().add(new ViewRecord(
