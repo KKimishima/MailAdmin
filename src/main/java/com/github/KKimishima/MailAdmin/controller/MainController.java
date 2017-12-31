@@ -4,7 +4,9 @@ import com.github.KKimishima.MailAdmin.app.App;
 import com.github.KKimishima.MailAdmin.model.loginModel.LoginADO;
 import com.github.KKimishima.MailAdmin.model.mainViewModel.*;
 import com.github.KKimishima.MailAdmin.model.mainViewModel.ComboBox.ComboData;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.ComboBox.ComboDataADO;
 import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.SelectItem;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.TableViewADO;
 import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.ViewRecord;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -84,9 +86,8 @@ public class MainController implements Initializable{
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     loginUserTex.setText(LoginADO.getUserID());
-    mainViewModel = new MainInfoADO();
-    mainViewModel.select();
-    list = mainViewModel.get();
+    mainViewModel = new TableViewADO();
+    list = mainViewModel.selectTableView();
 
     data = FXCollections.observableArrayList();
     infoView.setItems(data);
@@ -123,8 +124,8 @@ public class MainController implements Initializable{
           s.getPositionName()
       ));
     }
-    ComboData comboData = new ComboData();
-    locationCom.getItems().addAll(comboData.getCombMap().get("loc"));
+    ComboDataADO comboDataADO = new ComboDataADO();
+    locationCom.getItems().addAll(comboDataADO.selectLocation());
   }
 
   // instance(シングルトン)を返す
