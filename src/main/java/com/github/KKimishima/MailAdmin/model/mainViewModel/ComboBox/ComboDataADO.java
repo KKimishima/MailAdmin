@@ -1,9 +1,12 @@
 package com.github.KKimishima.MailAdmin.model.mainViewModel.ComboBox;
 
+import com.github.KKimishima.MailAdmin.model.mainViewModel.MainViewModel;
+
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ComboDataADO {
+//public class ComboDataADO implements MainViewModel{
+public class ComboDataADO{
   public ComboDataADO(){
     try{
       Class.forName("org.sqlite.JDBC");
@@ -11,17 +14,18 @@ public class ComboDataADO {
       e.printStackTrace();
     }
   }
-  public ArrayList<String> selectLocation(){
+  public ArrayList<String> selectComboData(String dataField,String dataTable){
     Connection con = null;
     ArrayList<String> list = new ArrayList<>();
     try{
       con = DriverManager.getConnection("jdbc:sqlite::resource:db/db.sqlite3");
       PreparedStatement ps = con.prepareStatement(
-          "select locationName from location;"
+          //"select ? from location;"
+          "select "+dataField+ " from "+dataTable+";"
       );
       ResultSet rs = ps.executeQuery();
       while (rs.next()){
-        list.add(rs.getString("locationName"));
+        list.add(rs.getString(dataField));
       }
     }catch (SQLException e){
       e.printStackTrace();

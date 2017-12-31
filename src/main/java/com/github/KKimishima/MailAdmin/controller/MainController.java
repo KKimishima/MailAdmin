@@ -125,7 +125,7 @@ public class MainController implements Initializable{
       ));
     }
     ComboDataADO comboDataADO = new ComboDataADO();
-    locationCom.getItems().addAll(comboDataADO.selectLocation());
+    locationCom.getItems().addAll(comboDataADO.selectComboData("locationName","location"));
   }
 
   // instance(シングルトン)を返す
