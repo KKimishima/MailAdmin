@@ -1,4 +1,4 @@
-package com.github.KKimishima.MailAdmin.model.mainViewModel;
+package com.github.KKimishima.MailAdmin.model.mainViewModel.tableView;
 
 public class ViewRecord {
   private String  syainIDCol;
