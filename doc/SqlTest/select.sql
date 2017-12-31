@@ -5,9 +5,17 @@ from "syainInfo";
 -- 勤務地
 select *
 from location;
+-- 勤務地一覧取得
+select "locationName"
+from location;
+
 -- 役職
 select *
 from position;
+-- 役職一覧
+select "positionName"
+from position;
+
 
 -- 登録情報系
 -- 登録情報まとめ
@@ -16,6 +24,9 @@ from register;
 -- 登録ステータス
 select *
 from statusRegister;
+-- 登録状態一覧
+select "statusName"
+from "statusRegister";
 -- ログインユーザ
 select *
 from loginUser;
