@@ -3,6 +3,9 @@ package com.github.KKimishima.MailAdmin.controller;
 import com.github.KKimishima.MailAdmin.app.App;
 import com.github.KKimishima.MailAdmin.model.loginModel.LoginADO;
 import com.github.KKimishima.MailAdmin.model.mainViewModel.*;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.ComboBox.ComboData;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.SelectItem;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.ViewRecord;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -120,10 +123,8 @@ public class MainController implements Initializable{
           s.getPositionName()
       ));
     }
-    ArrayList<String> a = new ArrayList<>();
-    a.add("test1");
-    a.add("test2");
-    locationCom.getItems().addAll(a);
+    ComboData comboData = new ComboData();
+    locationCom.getItems().addAll(comboData.getCombMap().get("loc"));
   }
 
   // instance(シングルトン)を返す
