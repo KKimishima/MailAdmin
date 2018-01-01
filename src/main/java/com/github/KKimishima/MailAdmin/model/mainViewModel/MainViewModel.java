@@ -6,4 +6,5 @@ import java.util.ArrayList;
 
 public interface MainViewModel {
   public abstract ArrayList<SelectItem>  selectTableView();
+//  public abstract ArrayList<String> selectComboData(String dataField,String dataTable);
 }
