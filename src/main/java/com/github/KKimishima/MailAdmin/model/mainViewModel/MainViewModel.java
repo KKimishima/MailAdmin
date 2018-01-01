@@ -10,5 +10,7 @@ public interface MainViewModel {
   public abstract void setList();
   public abstract ArrayList<SelectItem> getList();
   public abstract void cleanList();
-  public abstract HashSet<String> getComboData(String dataName);
+  public abstract HashSet<String> getLoction();
+  public abstract HashSet<String> getPostion();
+  public abstract HashSet<String> getStatus();
 }
