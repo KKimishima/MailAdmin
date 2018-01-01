@@ -9,13 +9,37 @@ import static org.junit.Assert.*;
 
 public class TableViewADOTest {
   @Test
-  public void getComboData() throws Exception {
+  public void getLoction() throws Exception {
     TableViewADO tableViewADO = new TableViewADO();
     tableViewADO.setList();
-    Set<String> hashSet = new HashSet<String>();
-    hashSet = tableViewADO.getComboData("a");
-    System.out.println(hashSet);
+    HashSet<String> hashSet = new HashSet<>();
+    hashSet.add("tokyo");
+    hashSet.add("ibaraki");
+    hashSet.add("osak");
+    assertThat(tableViewADO.getLoction(),is(hashSet));
   }
+
+  @Test
+  public void getPostion() throws Exception {
+    TableViewADO tableViewADO = new TableViewADO();
+    tableViewADO.setList();
+    HashSet<String> hashSet = new HashSet<>();
+    hashSet.add("管理職");
+    hashSet.add("一般職");
+    assertThat(tableViewADO.getPostion(),is(hashSet));
+  }
+
+  @Test
+  public void getStatus() throws Exception {
+    TableViewADO tableViewADO = new TableViewADO();
+    tableViewADO.setList();
+    HashSet<String> hashSet = new HashSet<>();
+    hashSet.add("返信待ち");
+    hashSet.add("未登録");
+    hashSet.add("登録完了");
+    assertThat(tableViewADO.getStatus(),is(hashSet));
+  }
+
 
   @Test
   public void setListTestでSQLで落ちないか確認() throws Exception {
