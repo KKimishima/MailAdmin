@@ -2,12 +2,21 @@ package com.github.KKimishima.MailAdmin.model.mainViewModel.tableView;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 public class TableViewADOTest {
+  @Test
+  public void getComboData() throws Exception {
+    TableViewADO tableViewADO = new TableViewADO();
+    tableViewADO.setList();
+    Set<String> hashSet = new HashSet<String>();
+    hashSet = tableViewADO.getComboData("a");
+    System.out.println(hashSet);
+  }
+
   @Test
   public void setListTestでSQLで落ちないか確認() throws Exception {
     TableViewADO mainInfoADO = new TableViewADO();

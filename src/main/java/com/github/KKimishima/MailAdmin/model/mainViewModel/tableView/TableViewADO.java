@@ -5,12 +5,22 @@ import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.SelectItem;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class TableViewADO implements MainViewModel {
   private ArrayList<SelectItem> list;
 
   public TableViewADO(){
     this.list = new ArrayList<>();
+  }
+
+  public HashSet<String> getComboData(String dataName){
+    HashSet<String> hashSet = new HashSet<>();
+    for (SelectItem s:list) {
+      hashSet.add(s.getLocationName());
+    }
+    return hashSet;
   }
 
   @Override
