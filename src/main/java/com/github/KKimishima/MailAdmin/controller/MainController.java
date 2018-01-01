@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.lang.invoke.SwitchPoint;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -87,7 +88,10 @@ public class MainController implements Initializable{
   public void initialize(URL url, ResourceBundle rb) {
     loginUserTex.setText(LoginADO.getUserID());
     mainViewModel = new TableViewADO();
-    list = mainViewModel.selectTableView();
+    mainViewModel.setList();
+    //ArrayList<SelectItem> list = new ArrayList<>();
+    list = mainViewModel.getList();
+    //list = mainViewModel.selectTableView();
 
     data = FXCollections.observableArrayList();
     infoView.setItems(data);
