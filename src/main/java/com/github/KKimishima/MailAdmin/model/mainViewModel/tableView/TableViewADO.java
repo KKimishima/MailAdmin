@@ -7,8 +7,24 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class TableViewADO implements MainViewModel {
+  private ArrayList<SelectItem> list;
 
-  public ArrayList<SelectItem> selectTableView() {
+  public TableViewADO(){
+    this.list = new ArrayList<>();
+  }
+
+  @Override
+  public ArrayList<SelectItem> getList() {
+    return list;
+  }
+
+  @Override
+  public  void cleanList(){
+    this.list.clear();
+  }
+
+  @Override
+  public void setList() {
     ArrayList<SelectItem> list = new ArrayList<>();
     try{
       Class.forName("org.sqlite.JDBC");
@@ -76,6 +92,7 @@ public class TableViewADO implements MainViewModel {
             rs.getString("userName")
         ));
       }
+
     }catch (SQLException e){
       e.printStackTrace();
     }finally {
@@ -85,6 +102,6 @@ public class TableViewADO implements MainViewModel {
         }catch (SQLException e){}
       }
     }
-    return list;
+   this.list = list;
   }
 }
