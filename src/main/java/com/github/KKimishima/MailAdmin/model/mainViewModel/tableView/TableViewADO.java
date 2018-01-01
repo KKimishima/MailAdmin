@@ -1,16 +1,41 @@
 package com.github.KKimishima.MailAdmin.model.mainViewModel.tableView;
 
 import com.github.KKimishima.MailAdmin.model.mainViewModel.MainViewModel;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.SelectItem;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+
 
 public class TableViewADO implements MainViewModel {
   private ArrayList<SelectItem> list;
 
   public TableViewADO(){
     this.list = new ArrayList<>();
+  }
+
+  public HashSet<String> getLoction(){
+    HashSet<String> hashSet = new HashSet<>();
+    for (SelectItem s:list) {
+      hashSet.add(s.getLocationName());
+    }
+    return hashSet;
+  }
+
+   public HashSet<String> getPostion(){
+    HashSet<String> hashSet = new HashSet<>();
+    for (SelectItem s:list) {
+      hashSet.add(s.getPositionName());
+    }
+    return hashSet;
+  }
+
+    public HashSet<String> getStatus(){
+    HashSet<String> hashSet = new HashSet<>();
+    for (SelectItem s:list) {
+      hashSet.add(s.getStatusName());
+    }
+    return hashSet;
   }
 
   @Override
