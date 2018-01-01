@@ -128,11 +128,9 @@ public class MainController implements Initializable{
           s.getPositionName()
       ));
     }
-    ComboDataADO comboDataADO = new ComboDataADO();
-    //locationCom.getItems().addAll(comboDataADO.selectComboData("locationName","location"));
-    locationCom.getItems().addAll(mainViewModel.getComboData("a"));
-    positionCom.getItems().addAll(comboDataADO.selectComboData("positionName","position"));
-    statusCom.getItems().addAll(comboDataADO.selectComboData("statusName","statusRegister"));
+    locationCom.getItems().addAll(mainViewModel.getLoction());
+    positionCom.getItems().addAll(mainViewModel.getPostion());
+    statusCom.getItems().addAll(mainViewModel.getStatus());
   }
 
   // instance(シングルトン)を返す
