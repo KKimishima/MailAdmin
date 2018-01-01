@@ -9,9 +9,16 @@ import static org.junit.Assert.*;
 
 public class TableViewADOTest {
   @Test
-  public void selectTableView() throws Exception {
+  public void setListTestでSQLで落ちないか確認() throws Exception {
     TableViewADO mainInfoADO = new TableViewADO();
-    ArrayList<SelectItem> list = mainInfoADO.selectTableView();
+    mainInfoADO.setList();
+  }
+  @Test
+  public void getList() throws Exception {
+    TableViewADO tableViewADO = new TableViewADO();
+    tableViewADO.setList();
+    ArrayList<SelectItem> list = new ArrayList();
+    list = tableViewADO.getList();
    assertThat(list.get(0).getSyainID(),is("11111"));
    assertThat(list.get(0).getSyainName(),is("hogehoge"));
    assertThat(list.get(0).getLocationName(),is("tokyo"));
@@ -34,5 +41,11 @@ public class TableViewADOTest {
    assertThat(list.get(1).getUserName(),is("user1"));
    assertThat(list.get(1).getUserID(),is("0001"));
   }
-
+  @Test
+  public void cleanList() throws Exception {
+    TableViewADO tableViewADO = new TableViewADO();
+    tableViewADO.setList();
+    tableViewADO.cleanList();
+    assertEquals(true,tableViewADO.getList().isEmpty());
+  }
 }
