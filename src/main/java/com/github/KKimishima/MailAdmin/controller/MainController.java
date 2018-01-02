@@ -153,7 +153,6 @@ public class MainController implements Initializable{
     statusCom.getItems().addAll(mainViewModel.getStatus());
   }
 
-  
   // instance(シングルトン)を返す
   public static MainController getInstance(){
     return instance;
