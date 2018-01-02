@@ -15,7 +15,8 @@
       <Text layoutX="348.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="メール管理システムメイン" />
       <TableView fx:id="infoView" layoutX="97.0" layoutY="89.0" prefHeight="339.0" prefWidth="691.0">
         <columns>
-          <TableColumn fx:id="syainIDColumn" prefWidth="93.0" text="社員番号" />
+            <TableColumn fx:id="indesCol" prefWidth="47.0" text="番号" />
+          <TableColumn fx:id="syainIDColumn" prefWidth="121.0" text="社員番号" />
           <TableColumn fx:id="syainNameColumn" prefWidth="93.0" text="社員名" />
             <TableColumn fx:id="addressColumn" prefWidth="179.0" text="メールアドレス" />
             <TableColumn fx:id="registerColumn" prefWidth="140.0" text="更新日時" />

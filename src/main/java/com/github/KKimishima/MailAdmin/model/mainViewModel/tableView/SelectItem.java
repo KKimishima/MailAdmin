@@ -1,6 +1,9 @@
 package com.github.KKimishima.MailAdmin.model.mainViewModel.tableView;
 
 public class SelectItem {
+  private int primaryAddressID;
+  private int secondaryAddressID;
+  private int index;
   private String syainID;
   private String syainName;
   private String locationName;
@@ -13,6 +16,9 @@ public class SelectItem {
   private String userID;
 
   public SelectItem(
+      int index,
+      int primaryAddressID,
+      int secondaryAddressID,
       String syainID,
       String syainName,
       String locationName,
@@ -24,6 +30,9 @@ public class SelectItem {
       String userID,
       String userName
   ){
+    this.index = index;
+    this.primaryAddressID = primaryAddressID;
+    this.secondaryAddressID = secondaryAddressID;
     this.syainID = syainID;
     this.syainName = syainName;
     this.locationName = locationName;
@@ -34,6 +43,18 @@ public class SelectItem {
     this.statusName = statusName;
     this.userName = userName;
     this.userID = userID;
+  }
+
+  public int getSecondaryAddressID() {
+    return secondaryAddressID;
+  }
+
+  public int getPrimaryAddressID() {
+    return primaryAddressID;
+  }
+
+  public int getIndex() {
+    return index;
   }
 
   public String getAddress() {

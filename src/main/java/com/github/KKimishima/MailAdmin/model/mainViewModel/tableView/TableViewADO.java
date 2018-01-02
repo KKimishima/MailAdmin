@@ -72,6 +72,8 @@ public class TableViewADO implements MainViewModel {
               "    positionName,\n" +
               "    -- maillAdressテーブル\n" +
               "    address,\n" +
+              "    \"maillAddress\".\"primaryAddressID\",\n"+
+              "    secondaryAddressID,\n" +
               "    -- register\"テーブル\n" +
               "    registerTime,\n" +
               "    bikou,\n" +
@@ -103,8 +105,12 @@ public class TableViewADO implements MainViewModel {
               ";"
       );
       ResultSet rs = ps.executeQuery();
+      int i = 0;
       while (rs.next()){
         list.add(new SelectItem(
+            i,
+            rs.getInt("primaryAddressID"),
+            rs.getInt("secondaryAddressID"),
             rs.getString("syainID"),
             rs.getString("syainName"),
             rs.getString("locationName"),
@@ -116,6 +122,7 @@ public class TableViewADO implements MainViewModel {
             rs.getString("userID"),
             rs.getString("userName")
         ));
+        i++;
       }
 
     }catch (SQLException e){

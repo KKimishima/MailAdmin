@@ -68,6 +68,8 @@ select
     positionName,
     -- maillAdressテーブル
     address,
+    "maillAddress"."primaryAddressID",
+    secondaryAddressID,
     -- register"テーブル
     registerTime,
     bikou,

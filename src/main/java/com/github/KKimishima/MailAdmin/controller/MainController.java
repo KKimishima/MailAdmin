@@ -44,6 +44,8 @@ public class MainController implements Initializable{
   @FXML
   private TableColumn<ViewRecord,String> UserNameColumn;
   @FXML
+  private TableColumn<ViewRecord,String> indesCol;
+  @FXML
   private Text loginUserTex;
   @FXML
   private Text syainIDTex;
@@ -70,6 +72,7 @@ public class MainController implements Initializable{
   private MainViewModel mainViewModel;
   private ArrayList<SelectItem> list;
   private ComboData comboData;
+  private status status;
 
   // 画面生成
   // クラスが読み込まれ時に実行
@@ -102,6 +105,7 @@ public class MainController implements Initializable{
     registerColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("registerCol"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("statusCol"));
     UserNameColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("UserNameCol"));
+    indesCol.setCellValueFactory(new PropertyValueFactory<ViewRecord,String>("Index"));
 
     infoView.getSelectionModel().selectedItemProperty().addListener((observable,oldVal,newVal) ->{
       //nullが出たら脱出
@@ -115,10 +119,13 @@ public class MainController implements Initializable{
       UserNameTex.setText(newVal.getUserNameCol());
       positionCom.setValue(newVal.getPositonCol());
       registerCom.getSelectionModel().select(0);
+      System.out.println(mainViewModel.getList().get(Integer.parseInt(newVal.getIndex())).getPrimaryAddressID());
+      //System.out.println(mainViewModel.getList().get(Integer.getInteger(newVal.getIndex())));
 
     });
     for (SelectItem s:list) {
       infoView.getItems().add(new ViewRecord(
+          String.valueOf(s.getIndex()),
           s.getSyainID(),
           s.getSyainName(),
           s.getAddress(),
