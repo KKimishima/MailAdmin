@@ -63,6 +63,8 @@ public class MainController implements Initializable{
   private Text UserNameTex;
   @FXML
   private ComboBox<String> positionCom;
+  @FXML
+  private  ComboBox<String> registerCom;
 
   private ObservableList<ViewRecord> data;
   private MainViewModel mainViewModel;
@@ -89,9 +91,7 @@ public class MainController implements Initializable{
     loginUserTex.setText(LoginADO.getUserID());
     mainViewModel = new TableViewADO();
     mainViewModel.setList();
-    //ArrayList<SelectItem> list = new ArrayList<>();
     list = mainViewModel.getList();
-    //list = mainViewModel.selectTableView();
 
     data = FXCollections.observableArrayList();
     infoView.setItems(data);
@@ -113,6 +113,7 @@ public class MainController implements Initializable{
       statusCom.setValue(newVal.getStatusCol());
       UserNameTex.setText(newVal.getUserNameCol());
       positionCom.setValue(newVal.getPositonCol());
+      registerCom.getSelectionModel().select(0);
 
     });
     for (SelectItem s:list) {
@@ -128,6 +129,25 @@ public class MainController implements Initializable{
           s.getPositionName()
       ));
     }
+    ObservableList<String> test =
+        FXCollections.observableArrayList(
+            "変更",
+            "新規登録"
+        );
+    registerCom.getItems().addAll(test);
+    registerCom.getSelectionModel().select(0);
+    registerCom.getSelectionModel().selectedIndexProperty().addListener((observable,oldVal,newVal) ->{
+      if (newVal.intValue() == 1){
+        syainIDTex.setText("");
+        addressTex.setText("");
+        nameTex.setText("");
+        bikouTex.setText("");
+        locationCom.setValue("");
+        statusCom.setValue("");
+        UserNameTex.setText("");
+        positionCom.setValue("");
+      }
+    });
     locationCom.getItems().addAll(mainViewModel.getLoction());
     positionCom.getItems().addAll(mainViewModel.getPostion());
     statusCom.getItems().addAll(mainViewModel.getStatus());
@@ -144,4 +164,5 @@ public class MainController implements Initializable{
   public void onRegister(){
     System.out.println("登録ボタンが押されました");
   }
+
 }
