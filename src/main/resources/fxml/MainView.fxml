@@ -41,7 +41,7 @@
       <Text layoutX="557.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="登録者" />
       <Button layoutX="752.0" layoutY="720.0" mnemonicParsing="false" text="削除" />
       <Text layoutX="29.0" layoutY="448.0" strokeType="OUTSIDE" strokeWidth="0.0" text="登録選択" />
-      <ComboBox layoutX="112.0" layoutY="52.0" prefWidth="150.0" />
+      <ComboBox fx:id="searchCom" layoutX="112.0" layoutY="52.0" prefWidth="150.0" />
       <Text layoutX="67.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="検索" />
       <TextField layoutX="262.0" layoutY="52.0" prefHeight="27.0" prefWidth="259.0" />
       <Button layoutX="744.0" layoutY="44.0" mnemonicParsing="false" text="更新" />
