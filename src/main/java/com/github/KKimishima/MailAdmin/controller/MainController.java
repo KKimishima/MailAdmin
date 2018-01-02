@@ -4,7 +4,6 @@ import com.github.KKimishima.MailAdmin.app.App;
 import com.github.KKimishima.MailAdmin.model.loginModel.LoginADO;
 import com.github.KKimishima.MailAdmin.model.mainViewModel.*;
 import com.github.KKimishima.MailAdmin.model.mainViewModel.ComboBox.ComboData;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.ComboBox.ComboDataADO;
 import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.SelectItem;
 import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.TableViewADO;
 import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.ViewRecord;
@@ -20,7 +19,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.lang.invoke.SwitchPoint;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -65,10 +63,13 @@ public class MainController implements Initializable{
   private ComboBox<String> positionCom;
   @FXML
   private  ComboBox<String> registerCom;
+  @FXML
+  private ComboBox<String> searchCom;
 
   private ObservableList<ViewRecord> data;
   private MainViewModel mainViewModel;
   private ArrayList<SelectItem> list;
+  private ComboData comboData;
 
   // 画面生成
   // クラスが読み込まれ時に実行
@@ -129,12 +130,8 @@ public class MainController implements Initializable{
           s.getPositionName()
       ));
     }
-    ObservableList<String> test =
-        FXCollections.observableArrayList(
-            "変更",
-            "新規登録"
-        );
-    registerCom.getItems().addAll(test);
+    comboData = new ComboData();
+    registerCom.getItems().addAll(comboData.registList());
     registerCom.getSelectionModel().select(0);
     registerCom.getSelectionModel().selectedIndexProperty().addListener((observable,oldVal,newVal) ->{
       if (newVal.intValue() == 1){
@@ -148,6 +145,7 @@ public class MainController implements Initializable{
         positionCom.setValue("");
       }
     });
+    searchCom.getItems().addAll(comboData.searchList());
     locationCom.getItems().addAll(mainViewModel.getLoction());
     positionCom.getItems().addAll(mainViewModel.getPostion());
     statusCom.getItems().addAll(mainViewModel.getStatus());
@@ -164,5 +162,6 @@ public class MainController implements Initializable{
   public void onRegister(){
     System.out.println("登録ボタンが押されました");
   }
+
 
 }
