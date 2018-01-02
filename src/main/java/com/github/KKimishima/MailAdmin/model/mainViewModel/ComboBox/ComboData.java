@@ -1,20 +1,30 @@
 package com.github.KKimishima.MailAdmin.model.mainViewModel.ComboBox;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ComboData {
-  private HashMap<String,ArrayList<String>> combMap;
-  public ComboData(){
-    combMap = new HashMap<String, ArrayList<String>>();
-    ArrayList<String> list = new ArrayList<>();
-    list.add("東京");
-    list.add("大阪");
-    list.add("仙台");
-    combMap.put("loc",list);
+  public ObservableList<String> registList(){
+    ObservableList<String> registData = FXCollections.observableArrayList(
+        "変更",
+        "新規"
+    );
+    return registData;
   }
-  public HashMap<String,ArrayList<String>> getCombMap(){
-    return combMap;
+  public ObservableList<String> searchList(){
+    ObservableList<String> searchData = FXCollections.observableArrayList(
+        "社員番号",
+        "社員名",
+        "メールアドレス",
+        "更新日時",
+        "登録状態",
+        "登録者"
+
+    );
+    return searchData;
   }
 }
