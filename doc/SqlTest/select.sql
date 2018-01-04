@@ -63,9 +63,11 @@ select
     syainID,
     syainName,
     -- locationテーブル
+    location.locationID,
     "locationName",
     -- positionテーブル
     positionName,
+    position."positionID"
     -- maillAdressテーブル
     address,
     "maillAddress"."primaryAddressID",
@@ -74,6 +76,7 @@ select
     registerTime,
     bikou,
     -- statusRegisterテーブル
+    statusRegister."statusRegisterID"
     "statusName",
     -- loginUserテーブル
     userName,

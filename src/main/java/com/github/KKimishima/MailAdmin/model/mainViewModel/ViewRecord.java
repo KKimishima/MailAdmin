@@ -1,6 +1,11 @@
-package com.github.KKimishima.MailAdmin.model.mainViewModel.tableView;
+package com.github.KKimishima.MailAdmin.model.mainViewModel;
 
 public class ViewRecord {
+  private int primaryAddressID;
+  private int secondaryAddressID;
+  private int locationID;
+  private int positionID;
+  private int statusRegister;
   private String  syainIDCol;
   private String  syainNameCol;
   private String  addressCol;
@@ -10,21 +15,30 @@ public class ViewRecord {
   private String  UserNameCol;
   private String  bikouCol;
   private String  locationCol;
-  private String index;
+  private String  userIDCol;
 
   public ViewRecord(
-      String index,
+      int primaryAddressID,
+      int secondaryAddressID,
+      int locationID,
+      int positionID,
+      int statusRegister,
       String syainIDCol,
       String syainNameCol,
+      String locationCol,
+      String positonCol,
       String addressCol,
       String registerCol,
-      String statusCol,
-      String UserNameCol,
       String bikouCol,
-      String locationCol,
-      String positonCol
+      String statusCol,
+      String userIDCol,
+      String UserNameCol
       ){
-    this.index = index;
+    this.primaryAddressID = primaryAddressID;
+    this.secondaryAddressID = secondaryAddressID;
+    this.locationID = locationID;
+    this.positionID = positionID;
+    this.statusRegister = statusRegister;
     this.syainIDCol = syainIDCol;
     this.syainNameCol = syainNameCol;
     this.addressCol = addressCol;
@@ -34,11 +48,38 @@ public class ViewRecord {
     this.bikouCol = bikouCol;
     this.locationCol = locationCol;
     this.positonCol = positonCol;
+    this.primaryAddressID = primaryAddressID;
+    this.userIDCol = userIDCol;
   }
 
-  public void setIndex(String index) {
-    this.index = index;
+  public void setUserIDCol(String userIDCol) {
+    this.userIDCol = userIDCol;
   }
+
+  public void setLocationID(int locationID) {
+    this.locationID = locationID;
+  }
+
+  public void setPositionID(int positionID) {
+    this.positionID = positionID;
+  }
+
+  public void setSecondaryAddressID(int secondaryAddressID) {
+    this.secondaryAddressID = secondaryAddressID;
+  }
+
+  public void setStatusRegister(int statusRegister) {
+    this.statusRegister = statusRegister;
+  }
+
+  public int getSecondaryAddressID() {
+    return secondaryAddressID;
+  }
+
+  public void setPrimaryAddressID(int primaryAddressID) {
+    this.primaryAddressID = primaryAddressID;
+  }
+
 
 
   public void setPositonCol(String positonCol) {
@@ -78,9 +119,6 @@ public class ViewRecord {
   }
 
 
-  public String getIndex() {
-    return index;
-  }
 
   public String getAddressCol() {
     return addressCol;
@@ -102,6 +140,10 @@ public class ViewRecord {
     return syainIDCol;
   }
 
+  public String getUserIDCol() {
+    return userIDCol;
+  }
+
   public String getSyainNameCol() {
     return syainNameCol;
   }
@@ -116,5 +158,21 @@ public class ViewRecord {
 
   public String getPositonCol() {
     return positonCol;
+  }
+
+  public int getPrimaryAddressID() {
+    return primaryAddressID;
+  }
+
+  public int getLocationID() {
+    return locationID;
+  }
+
+  public int getPositionID() {
+    return positionID;
+  }
+
+  public int getStatusRegister() {
+    return statusRegister;
   }
 }

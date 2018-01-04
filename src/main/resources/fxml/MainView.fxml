@@ -13,16 +13,14 @@
 <AnchorPane prefHeight="778.0" prefWidth="852.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.KKimishima.MailAdmin.controller.MainController">
    <children>
       <Text layoutX="348.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="メール管理システムメイン" />
-      <TableView fx:id="infoView" layoutX="97.0" layoutY="89.0" prefHeight="339.0" prefWidth="691.0">
+      <TableView fx:id="infoView" layoutX="30.0" layoutY="87.0" prefHeight="339.0" prefWidth="792.0">
         <columns>
-            <TableColumn fx:id="indesCol" prefWidth="47.0" text="番号" />
-          <TableColumn fx:id="syainIDColumn" prefWidth="121.0" text="社員番号" />
-          <TableColumn fx:id="syainNameColumn" prefWidth="93.0" text="社員名" />
-            <TableColumn fx:id="addressColumn" prefWidth="179.0" text="メールアドレス" />
-            <TableColumn fx:id="registerColumn" prefWidth="140.0" text="更新日時" />
-            <TableColumn fx:id="statusColumn" prefWidth="91.0" text="登録状態" />
-            <TableColumn fx:id="UserNameColumn" prefWidth="94.0" text="登録者" />
-            <TableColumn fx:id="bikouColumn" prefWidth="75.0" text="備考" />
+          <TableColumn fx:id="syainIDColumn" prefWidth="111.0" text="社員番号" />
+          <TableColumn fx:id="syainNameColumn" prefWidth="96.0" text="社員名" />
+            <TableColumn fx:id="addressColumn" prefWidth="238.0" text="メールアドレス" />
+            <TableColumn fx:id="registerColumn" prefWidth="146.0" text="更新日時" />
+            <TableColumn fx:id="statusColumn" prefWidth="93.0" text="登録状態" />
+            <TableColumn fx:id="UserNameColumn" prefWidth="107.0" text="登録者" />
         </columns>
       </TableView>
       <Text layoutX="42.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="名前" />
