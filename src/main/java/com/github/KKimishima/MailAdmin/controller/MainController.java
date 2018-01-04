@@ -3,10 +3,9 @@ package com.github.KKimishima.MailAdmin.controller;
 import com.github.KKimishima.MailAdmin.app.App;
 import com.github.KKimishima.MailAdmin.model.loginModel.LoginADO;
 import com.github.KKimishima.MailAdmin.model.mainViewModel.*;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.ComboBox.ComboData;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.SelectItem;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.TableViewADO;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.ViewRecord;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.ComboData;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.TableViewADO;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.ViewRecord;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -65,11 +64,13 @@ public class MainController implements Initializable{
   private  ComboBox<String> registerCom;
   @FXML
   private ComboBox<String> searchCom;
+// 実験  private ComboBox<Test> searchCom;
 
   private ObservableList<ViewRecord> data;
   private MainViewModel mainViewModel;
-  private ArrayList<SelectItem> list;
+  private ArrayList<ViewRecord> list;
   private ComboData comboData;
+  private ViewStatus viewStatus;
 
   // 画面生成
   // クラスが読み込まれ時に実行
@@ -103,6 +104,7 @@ public class MainController implements Initializable{
     statusColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("statusCol"));
     UserNameColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("UserNameCol"));
 
+    viewStatus = new ViewStatus();
     infoView.getSelectionModel().selectedItemProperty().addListener((observable,oldVal,newVal) ->{
       //nullが出たら脱出
       if (newVal == null){return;}
@@ -111,25 +113,25 @@ public class MainController implements Initializable{
       nameTex.setText(newVal.getSyainNameCol());
       bikouTex.setText(newVal.getBikouCol());
       locationCom.setValue(newVal.getLocationCol());
+      viewStatus.setLocationST(newVal.getLocationID());
+
       statusCom.setValue(newVal.getStatusCol());
+      viewStatus.setStatusRegisterST(newVal.getStatusRegister());
+
       UserNameTex.setText(newVal.getUserNameCol());
+
       positionCom.setValue(newVal.getPositonCol());
+      viewStatus.setPositionST(newVal.getPositionID());
+
       registerCom.getSelectionModel().select(0);
+      viewStatus.setRegistType(false);
+
+      viewStatus.setPrimaryAddressST(newVal.getPrimaryAddressID());
+      viewStatus.setSecondaryAddressST(newVal.getSecondaryAddressID());
 
     });
-    for (SelectItem s:list) {
-      infoView.getItems().add(new ViewRecord(
-          s.getSyainID(),
-          s.getSyainName(),
-          s.getAddress(),
-          s.getRegisterTime(),
-          s.getStatusName(),
-          s.getUserName(),
-          s.getBikou(),
-          s.getLocationName(),
-          s.getPositionName()
-      ));
-    }
+    infoView.getItems().addAll(mainViewModel.getList());
+
     comboData = new ComboData();
     registerCom.getItems().addAll(comboData.registList());
     registerCom.getSelectionModel().select(0);
@@ -143,12 +145,24 @@ public class MainController implements Initializable{
         statusCom.setValue("");
         UserNameTex.setText("");
         positionCom.setValue("");
+        viewStatus.cleanStatus();
       }
     });
     searchCom.getItems().addAll(comboData.searchList());
-    locationCom.getItems().addAll(mainViewModel.getLoction());
-    positionCom.getItems().addAll(mainViewModel.getPostion());
-    statusCom.getItems().addAll(mainViewModel.getStatus());
+
+    locationCom.getItems().addAll(comboData.getLocationCom());
+    locationCom.getSelectionModel().selectedIndexProperty().addListener((observable,oldVal,newVal) -> {
+      viewStatus.setLocationST(newVal.intValue() + 1);
+    });
+
+    positionCom.getItems().addAll(comboData.getPositionCom());
+    positionCom.getSelectionModel().selectedIndexProperty().addListener((observable,oldVal,newVal) ->{
+      viewStatus.setPositionST(newVal.intValue() + 1);
+    });
+    statusCom.getItems().addAll(comboData.getStatusCom());
+    statusCom.getSelectionModel().selectedIndexProperty().addListener((observable,oldVal,newVal) ->{
+      viewStatus.setPositionST(newVal.intValue() + 1);
+    });
   }
 
   // instance(シングルトン)を返す
@@ -160,7 +174,18 @@ public class MainController implements Initializable{
     App.presentStage.setScene(SCENE);
   }
   public void onRegister(){
-    System.out.println("登録ボタンが押されました");
+    System.out.println("-- 変更可能な勤務地と役職の変更");
+    System.out.println("場所" + viewStatus.getLocationST());
+    System.out.println("役職" + viewStatus.getPositionST());
+    System.out.println("主アドレス" + viewStatus.getPrimaryAddressST());
+    System.out.println("社員番号" + syainIDTex.getText());
+
+    System.out.println(" --登録情報系");
+    System.out.println("ユーザID" + UserNameTex.getText());
+    System.out.println("登録状態" +viewStatus.getStatusRegisterST());
+    System.out.println("備考" + bikouTex.getText());
+
+    System.out.println("登録タイプ" + viewStatus.getRegistType());
   }
 
 
