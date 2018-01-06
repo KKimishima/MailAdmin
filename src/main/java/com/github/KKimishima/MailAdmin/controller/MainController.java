@@ -2,6 +2,8 @@ package com.github.KKimishima.MailAdmin.controller;
 
 import com.github.KKimishima.MailAdmin.app.App;
 import com.github.KKimishima.MailAdmin.model.loginModel.LoginADO;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.dataRegistration.DBRegisterInterFace;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.dataRegistration.RegisterType;
 import com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +20,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import static com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.RegisterEnum.CHANGE;
 
 public class MainController implements Initializable{
   // instance(シングルトン)
@@ -42,7 +46,7 @@ public class MainController implements Initializable{
   @FXML
   private Text loginUserTex;
   @FXML
-  private Text syainIDTex;
+  private TextField syainIDTex;
   @FXML
   private TextField addressTex;
   @FXML
@@ -61,7 +65,6 @@ public class MainController implements Initializable{
   private  ComboBox<String> registerCom;
   @FXML
   private ComboBox<String> searchCom;
-// 実験  private ComboBox<Test> searchCom;
 
   private ObservableList<ViewData> data;
   private ViewDataModel viewDataModel;
@@ -106,6 +109,7 @@ public class MainController implements Initializable{
       //nullが出たら脱出
       if (newVal == null){return;}
       syainIDTex.setText(newVal.getSyainIDCol());
+      syainIDTex.setEditable(false);
       addressTex.setText(newVal.getAddressCol());
       nameTex.setText(newVal.getSyainNameCol());
       bikouTex.setText(newVal.getBikouCol());
@@ -121,7 +125,7 @@ public class MainController implements Initializable{
       viewStatus.setPositionST(newVal.getPositionID());
 
       registerCom.getSelectionModel().select(0);
-      viewStatus.setRegistType(false);
+      viewStatus.setRegisterEnum(CHANGE);
 
       viewStatus.setPrimaryAddressST(newVal.getPrimaryAddressID());
       viewStatus.setSecondaryAddressST(newVal.getSecondaryAddressID());
@@ -135,6 +139,7 @@ public class MainController implements Initializable{
     registerCom.getSelectionModel().selectedIndexProperty().addListener((observable,oldVal,newVal) ->{
       if (newVal.intValue() == 1){
         syainIDTex.setText("");
+        syainIDTex.setEditable(true);
         addressTex.setText("");
         nameTex.setText("");
         bikouTex.setText("");
@@ -171,18 +176,30 @@ public class MainController implements Initializable{
     App.presentStage.setScene(SCENE);
   }
   public void onRegister(){
+    viewStatus.setSyainID(syainIDTex.getText());
+    viewStatus.setUserName(UserNameTex.getText());
+    viewStatus.setBikou(bikouTex.getText());
+
+    DBRegisterInterFace dbRegisterInterFace = new RegisterType(viewStatus);
+    if (!dbRegisterInterFace.Register()){
+      Message message = new Message();
+      message.ErrorMessge();
+      return;
+    }
+
     System.out.println("-- 変更可能な勤務地と役職の変更");
     System.out.println("場所" + viewStatus.getLocationST());
     System.out.println("役職" + viewStatus.getPositionST());
     System.out.println("主アドレス" + viewStatus.getPrimaryAddressST());
-    System.out.println("社員番号" + syainIDTex.getText());
+    System.out.println("複アドレス" + viewStatus.getSecondaryAddressST());
+    System.out.println("社員番号" + viewStatus.getSyainID());
 
     System.out.println(" --登録情報系");
-    System.out.println("ユーザID" + UserNameTex.getText());
+    System.out.println("ユーザID" + viewStatus.getUserName());
     System.out.println("登録状態" +viewStatus.getStatusRegisterST());
-    System.out.println("備考" + bikouTex.getText());
+    System.out.println("備考" + viewStatus.getBikou());
 
-    System.out.println("登録タイプ" + viewStatus.getRegistType());
+    System.out.println("登録タイプ" + viewStatus.getRegisterEnum());
   }
 
 

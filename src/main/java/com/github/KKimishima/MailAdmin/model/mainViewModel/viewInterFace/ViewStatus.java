@@ -2,13 +2,19 @@ package com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace;
 
 import javax.swing.text.View;
 
+import static com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.RegisterEnum.DEFAULT;
+import static com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.RegisterEnum.NEW;
+
 public class ViewStatus {
   private int primaryAddressST;
   private int secondaryAddressST;
   private int locationST;
   private int positionST;
   private int statusRegisterST;
-  private Boolean registType;
+  private RegisterEnum registerEnum;
+  private String syainID;
+  private String userName;
+  private String bikou;
 
   public ViewStatus(){
     this.primaryAddressST = 0;
@@ -16,8 +22,10 @@ public class ViewStatus {
     this.locationST = 0;
     this.positionST = 0;
     this.statusRegisterST =0;
-    this.registType = null;
-
+    this.registerEnum = DEFAULT;
+    this.syainID = null;
+    this.userName = null;
+    this.bikou = null;
   }
 
   public void cleanStatus(){
@@ -26,11 +34,27 @@ public class ViewStatus {
     this.locationST = 0;
     this.positionST = 0;
     this.statusRegisterST =0;
-    this.registType = true;
+    this.registerEnum = NEW;
+    this.syainID = null;
+    this.userName = null;
+    this.bikou = null;
   }
 
-  public Boolean getRegistType() {
-    return registType;
+  public String getUserName() {
+    return userName;
+  }
+
+  public String getSyainID() {
+    return syainID;
+  }
+
+  public String getBikou() {
+    return bikou;
+  }
+
+
+  public RegisterEnum getRegisterEnum() {
+    return registerEnum;
   }
 
   public int getLocationST() {
@@ -73,7 +97,20 @@ public class ViewStatus {
     this.statusRegisterST = statusRegisterST;
   }
 
-  public void setRegistType(Boolean registType) {
-    this.registType = registType;
+  public void setUserName(String userName) {
+    this.userName = userName;
   }
+
+  public void setSyainID(String syainID) {
+    this.syainID = syainID;
+  }
+
+  public void setBikou(String bikou) {
+    this.bikou = bikou;
+  }
+
+  public void setRegisterEnum(RegisterEnum registerEnum) {
+    this.registerEnum = registerEnum;
+  }
+
 }
