@@ -23,32 +23,28 @@
             <TableColumn fx:id="UserNameColumn" prefWidth="107.0" text="登録者" />
         </columns>
       </TableView>
-      <Text layoutX="42.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="名前" />
+      <Text layoutX="43.0" layoutY="552.0" strokeType="OUTSIDE" strokeWidth="0.0" text="名前" />
       <Text layoutX="29.0" layoutY="590.0" strokeType="OUTSIDE" strokeWidth="0.0" text="アドレス" />
-      <TextField fx:id="nameTex" layoutX="95.0" layoutY="511.0" />
+      <TextField fx:id="nameTex" layoutX="95.0" layoutY="532.0" />
       <TextField fx:id="addressTex" layoutX="95.0" layoutY="575.0" />
       <Button layoutX="630.0" layoutY="720.0" mnemonicParsing="false" onAction="#onRegister" text="登録" />
       <ComboBox fx:id="registerCom" layoutX="96.0" layoutY="437.0" prefHeight="27.0" prefWidth="100.0" />
-      <Text layoutX="309.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="勤務地" />
+      <Text layoutX="310.0" layoutY="543.0" strokeType="OUTSIDE" strokeWidth="0.0" text="勤務地" />
       <ComboBox fx:id="statusCom" layoutX="630.0" layoutY="581.0" prefWidth="150.0" />
-      <ComboBox fx:id="locationCom" layoutX="371.0" layoutY="511.0" prefWidth="150.0" />
+      <ComboBox fx:id="locationCom" layoutX="371.0" layoutY="525.0" prefWidth="150.0" />
       <ComboBox fx:id="positionCom" layoutX="371.0" layoutY="581.0" prefWidth="150.0" />
       <Text layoutX="316.0" layoutY="599.0" strokeType="OUTSIDE" strokeWidth="0.0" text="役職" />
       <Text layoutX="42.0" layoutY="667.0" strokeType="OUTSIDE" strokeWidth="0.0" text="備考" />
       <TextArea fx:id="bikouTex" layoutX="95.0" layoutY="625.0" prefHeight="129.0" prefWidth="404.0" />
       <Text layoutX="557.0" layoutY="599.0" strokeType="OUTSIDE" strokeWidth="0.0" text="登録状態" />
-      <Text layoutX="557.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="登録者" />
+      <Text layoutX="557.0" layoutY="543.0" strokeType="OUTSIDE" strokeWidth="0.0" text="登録者" />
       <Button layoutX="752.0" layoutY="720.0" mnemonicParsing="false" text="削除" />
       <Text layoutX="29.0" layoutY="448.0" strokeType="OUTSIDE" strokeWidth="0.0" text="登録選択" />
       <ComboBox fx:id="searchCom" layoutX="112.0" layoutY="52.0" prefWidth="150.0" />
       <Text layoutX="67.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="検索" />
       <TextField layoutX="262.0" layoutY="52.0" prefHeight="27.0" prefWidth="259.0" />
       <Button layoutX="744.0" layoutY="44.0" mnemonicParsing="false" text="更新" />
-      <Text fx:id="syainIDTex" layoutX="101.0" layoutY="495.0" strokeType="OUTSIDE" strokeWidth="0.0">
-         <font>
-            <Font size="26.0" />
-         </font>
-      </Text>
+      <Text layoutX="34.0" layoutY="506.0" strokeType="OUTSIDE" strokeWidth="0.0" text="社員番号" />
       <Text layoutX="10.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ログインユーザ" />
       <Text fx:id="loginUserTex" layoutX="113.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
@@ -60,5 +56,6 @@
             <Font size="21.0" />
          </font>
       </Text>
+      <TextField fx:id="syainIDTex" layoutX="95.0" layoutY="483.0" />
    </children>
 </AnchorPane>
