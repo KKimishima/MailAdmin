@@ -1,7 +1,7 @@
 package com.github.KKimishima.MailAdmin.model.mainViewModel.tableView;
 
-import com.github.KKimishima.MailAdmin.model.mainViewModel.TableViewADO;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.ViewRecord;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.ViewDataDataADO;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.ViewData;
 import org.junit.Test;
 
 import java.util.*;
@@ -12,48 +12,48 @@ import static org.junit.Assert.*;
 public class TableViewADOTest {
   @Test
   public void getLoction() throws Exception {
-    TableViewADO tableViewADO = new TableViewADO();
-    tableViewADO.setList();
+    ViewDataDataADO viewDataADO = new ViewDataDataADO();
+    viewDataADO.setList();
     HashSet<String> hashSet = new HashSet<>();
     hashSet.add("tokyo");
     hashSet.add("ibaraki");
     hashSet.add("osak");
-    assertThat(tableViewADO.getLoction(),is(hashSet));
+    assertThat(viewDataADO.getLoction(),is(hashSet));
   }
 
   @Test
   public void getPostion() throws Exception {
-    TableViewADO tableViewADO = new TableViewADO();
-    tableViewADO.setList();
+    ViewDataDataADO viewDataADO = new ViewDataDataADO();
+    viewDataADO.setList();
     HashSet<String> hashSet = new HashSet<>();
     hashSet.add("管理職");
     hashSet.add("一般職");
-    assertThat(tableViewADO.getPostion(),is(hashSet));
+    assertThat(viewDataADO.getPostion(),is(hashSet));
   }
 
   @Test
   public void getStatus() throws Exception {
-    TableViewADO tableViewADO = new TableViewADO();
-    tableViewADO.setList();
+    ViewDataDataADO viewDataADO = new ViewDataDataADO();
+    viewDataADO.setList();
     HashSet<String> hashSet = new HashSet<>();
     hashSet.add("返信待ち");
     hashSet.add("未登録");
     hashSet.add("登録完了");
-    assertThat(tableViewADO.getStatus(),is(hashSet));
+    assertThat(viewDataADO.getStatus(),is(hashSet));
   }
 
 
   @Test
   public void setListTestでSQLで落ちないか確認() throws Exception {
-    TableViewADO mainInfoADO = new TableViewADO();
+    ViewDataDataADO mainInfoADO = new ViewDataDataADO();
     mainInfoADO.setList();
   }
   @Test
   public void getList() throws Exception {
-    TableViewADO tableViewADO = new TableViewADO();
-    tableViewADO.setList();
-    ArrayList<ViewRecord> list = new ArrayList();
-    list = tableViewADO.getList();
+    ViewDataDataADO viewDataADO = new ViewDataDataADO();
+    viewDataADO.setList();
+    ArrayList<ViewData> list = new ArrayList();
+    list = viewDataADO.getList();
     assertThat(list.get(0).getLocationID(),is(1));
     assertThat(list.get(0).getSecondaryAddressID(),is(1));
     assertThat(list.get(0).getLocationID(),is(1));
@@ -83,9 +83,9 @@ public class TableViewADOTest {
   }
   @Test
   public void cleanList() throws Exception {
-    TableViewADO tableViewADO = new TableViewADO();
-    tableViewADO.setList();
-    tableViewADO.cleanList();
-    assertEquals(true,tableViewADO.getList().isEmpty());
+    ViewDataDataADO viewDataADO = new ViewDataDataADO();
+    viewDataADO.setList();
+    viewDataADO.cleanList();
+    assertEquals(true, viewDataADO.getList().isEmpty());
   }
 }

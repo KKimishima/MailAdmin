@@ -2,10 +2,7 @@ package com.github.KKimishima.MailAdmin.controller;
 
 import com.github.KKimishima.MailAdmin.app.App;
 import com.github.KKimishima.MailAdmin.model.loginModel.LoginADO;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.*;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.ComboData;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.TableViewADO;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.ViewRecord;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,19 +26,19 @@ public class MainController implements Initializable{
   private static Scene SCENE;
 
   @FXML
-  private TableView<ViewRecord> infoView;
+  private TableView<ViewData> infoView;
   @FXML
-  private TableColumn<ViewRecord,String> syainIDColumn;
+  private TableColumn<ViewData,String> syainIDColumn;
   @FXML
-  private TableColumn<ViewRecord,String> syainNameColumn;
+  private TableColumn<ViewData,String> syainNameColumn;
   @FXML
-  private TableColumn<ViewRecord,String> addressColumn;
+  private TableColumn<ViewData,String> addressColumn;
   @FXML
-  private TableColumn<ViewRecord,String> registerColumn;
+  private TableColumn<ViewData,String> registerColumn;
   @FXML
-  private TableColumn<ViewRecord,String> statusColumn;
+  private TableColumn<ViewData,String> statusColumn;
   @FXML
-  private TableColumn<ViewRecord,String> UserNameColumn;
+  private TableColumn<ViewData,String> UserNameColumn;
   @FXML
   private Text loginUserTex;
   @FXML
@@ -66,9 +63,9 @@ public class MainController implements Initializable{
   private ComboBox<String> searchCom;
 // 実験  private ComboBox<Test> searchCom;
 
-  private ObservableList<ViewRecord> data;
-  private MainViewModel mainViewModel;
-  private ArrayList<ViewRecord> list;
+  private ObservableList<ViewData> data;
+  private ViewDataModel viewDataModel;
+  private ArrayList<ViewData> list;
   private ComboData comboData;
   private ViewStatus viewStatus;
 
@@ -91,18 +88,18 @@ public class MainController implements Initializable{
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     loginUserTex.setText(LoginADO.getUserID());
-    mainViewModel = new TableViewADO();
-    mainViewModel.setList();
-    list = mainViewModel.getList();
+    viewDataModel = new ViewDataDataADO();
+    viewDataModel.setList();
+    list = viewDataModel.getList();
 
     data = FXCollections.observableArrayList();
     infoView.setItems(data);
-    syainIDColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("syainIDCol"));
-    syainNameColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("syainNameCol"));
-    addressColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("addressCol"));
-    registerColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("registerCol"));
-    statusColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("statusCol"));
-    UserNameColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("UserNameCol"));
+    syainIDColumn.setCellValueFactory(new PropertyValueFactory<ViewData, String>("syainIDCol"));
+    syainNameColumn.setCellValueFactory(new PropertyValueFactory<ViewData, String>("syainNameCol"));
+    addressColumn.setCellValueFactory(new PropertyValueFactory<ViewData, String>("addressCol"));
+    registerColumn.setCellValueFactory(new PropertyValueFactory<ViewData, String>("registerCol"));
+    statusColumn.setCellValueFactory(new PropertyValueFactory<ViewData, String>("statusCol"));
+    UserNameColumn.setCellValueFactory(new PropertyValueFactory<ViewData, String>("UserNameCol"));
 
     viewStatus = new ViewStatus();
     infoView.getSelectionModel().selectedItemProperty().addListener((observable,oldVal,newVal) ->{
@@ -130,7 +127,7 @@ public class MainController implements Initializable{
       viewStatus.setSecondaryAddressST(newVal.getSecondaryAddressID());
 
     });
-    infoView.getItems().addAll(mainViewModel.getList());
+    infoView.getItems().addAll(viewDataModel.getList());
 
     comboData = new ComboData();
     registerCom.getItems().addAll(comboData.registList());

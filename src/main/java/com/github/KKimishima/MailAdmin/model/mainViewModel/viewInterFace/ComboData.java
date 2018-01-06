@@ -1,4 +1,4 @@
-package com.github.KKimishima.MailAdmin.model.mainViewModel;
+package com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

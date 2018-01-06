@@ -1,43 +1,18 @@
-package com.github.KKimishima.MailAdmin.model.mainViewModel;
+package com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 
-public class TableViewADO implements MainViewModel {
-  private ArrayList<ViewRecord> list;
+public class ViewDataDataADO implements ViewDataModel {
+  private ArrayList<ViewData> list;
 
-  public TableViewADO(){
+  public ViewDataDataADO(){
     this.list = new ArrayList<>();
   }
 
-  public HashSet<String> getLoction(){
-    HashSet<String> hashSet = new HashSet<>();
-    for(ViewRecord s:list){
-      hashSet.add(s.getLocationCol());
-    }
-    return hashSet;
-  }
-
-   public HashSet<String> getPostion(){
-    HashSet<String> hashSet = new HashSet<>();
-     for(ViewRecord s:list){
-      hashSet.add(s.getPositonCol());
-    }
-    return hashSet;
-  }
-
-    public HashSet<String> getStatus(){
-    HashSet<String> hashSet = new HashSet<>();
-      for (ViewRecord s:list){
-        hashSet.add(s.getStatusCol());
-    }
-    return hashSet;
-  }
-
   @Override
-  public ArrayList<ViewRecord> getList() {
+  public ArrayList<ViewData> getList() {
     return list;
   }
 
@@ -48,7 +23,7 @@ public class TableViewADO implements MainViewModel {
 
   @Override
   public void setList() {
-    ArrayList<ViewRecord> list = new ArrayList<>();
+    ArrayList<ViewData> list = new ArrayList<>();
 
     try{
       Class.forName("org.sqlite.JDBC");
@@ -108,7 +83,7 @@ public class TableViewADO implements MainViewModel {
       );
       ResultSet rs = ps.executeQuery();
       while (rs.next()){
-        list.add(new ViewRecord(
+        list.add(new ViewData(
             rs.getInt("primaryAddressID"),
             rs.getInt("secondaryAddressID"),
             rs.getInt("locationID"),

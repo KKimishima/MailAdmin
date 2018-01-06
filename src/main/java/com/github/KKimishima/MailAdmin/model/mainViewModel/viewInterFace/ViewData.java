@@ -1,6 +1,6 @@
-package com.github.KKimishima.MailAdmin.model.mainViewModel;
+package com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace;
 
-public class ViewRecord {
+public class ViewData {
   private int primaryAddressID;
   private int secondaryAddressID;
   private int locationID;
@@ -17,7 +17,7 @@ public class ViewRecord {
   private String  locationCol;
   private String  userIDCol;
 
-  public ViewRecord(
+  public ViewData(
       int primaryAddressID,
       int secondaryAddressID,
       int locationID,
