@@ -10,38 +10,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 public class TableViewADOTest {
-  @Test
-  public void getLoction() throws Exception {
-    ViewDataDataADO viewDataADO = new ViewDataDataADO();
-    viewDataADO.setList();
-    HashSet<String> hashSet = new HashSet<>();
-    hashSet.add("tokyo");
-    hashSet.add("ibaraki");
-    hashSet.add("osak");
-    assertThat(viewDataADO.getLoction(),is(hashSet));
-  }
-
-  @Test
-  public void getPostion() throws Exception {
-    ViewDataDataADO viewDataADO = new ViewDataDataADO();
-    viewDataADO.setList();
-    HashSet<String> hashSet = new HashSet<>();
-    hashSet.add("管理職");
-    hashSet.add("一般職");
-    assertThat(viewDataADO.getPostion(),is(hashSet));
-  }
-
-  @Test
-  public void getStatus() throws Exception {
-    ViewDataDataADO viewDataADO = new ViewDataDataADO();
-    viewDataADO.setList();
-    HashSet<String> hashSet = new HashSet<>();
-    hashSet.add("返信待ち");
-    hashSet.add("未登録");
-    hashSet.add("登録完了");
-    assertThat(viewDataADO.getStatus(),is(hashSet));
-  }
-
 
   @Test
   public void setListTestでSQLで落ちないか確認() throws Exception {
