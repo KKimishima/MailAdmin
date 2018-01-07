@@ -99,15 +99,15 @@ public class ViewStatus {
   }
 
   public void setAddress(String address) {
-    this.address = address;
+    this.address = StringTrim(address);
   }
 
   public void setName(String name) {
-    this.name = name;
+    this.name = StringTrim(name);
   }
 
   public void setLoginUser(String loginUser) {
-    this.loginUser = loginUser;
+    this.loginUser = StringTrim(loginUser);
   }
 
   public void setLocationST(int locationST) {
@@ -131,11 +131,11 @@ public class ViewStatus {
   }
 
   public void setUserName(String userName) {
-    this.userName = userName;
+    this.userName = StringTrim(userName);
   }
 
   public void setSyainID(String syainID) {
-    this.syainID = syainID;
+    this.syainID = StringTrim(syainID);
   }
 
   public void setBikou(String bikou) {
@@ -146,4 +146,7 @@ public class ViewStatus {
     this.registerEnum = registerEnum;
   }
 
+  private String StringTrim(String str){
+    return  str.trim().replaceAll("　","");
+  }
 }
