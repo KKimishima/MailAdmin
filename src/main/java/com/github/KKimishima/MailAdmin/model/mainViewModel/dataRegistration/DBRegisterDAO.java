@@ -27,7 +27,10 @@ public abstract class DBRegisterDAO {
     if (viewStatus.getStatusRegisterST() == 0){flag = false;}
     if (viewStatus.getPositionST() == 0){flag = false;}
     if (viewStatus.getLocationST() == 0){flag = false;}
-    if (viewStatus.getAddress().equals("")){flag = false;}
+
+    String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
+    if (!viewStatus.getAddress().matches(mailFormat)){flag = false;}
+
     if (viewStatus.getName().equals("")){flag = false;}
     if (viewStatus.getLoginUser().equals("")){flag = false;}
     return flag;
