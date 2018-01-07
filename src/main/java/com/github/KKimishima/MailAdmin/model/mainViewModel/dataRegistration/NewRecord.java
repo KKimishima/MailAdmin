@@ -9,7 +9,7 @@ public class NewRecord extends DBRegisterDAO{
   }
 
   @Override
-  public Boolean DataCheck(ViewStatus viewStatus){
+  public Boolean DBConnect(ViewStatus viewStatus){
     System.out.println("NewRecord実行trueの返す");
     return true;
   }

@@ -9,15 +9,31 @@ public abstract class DBRegisterDAO {
     this.viewStatus = viewStatus;
   }
 
-  public abstract Boolean DataCheck(ViewStatus viewStatus);
+  public abstract Boolean DBConnect(ViewStatus viewStatus);
 
   public Boolean Register(){
-    System.out.println("DBRegisterDAO実行:trueを返す");
-    if (DataCheck(viewStatus)){
-      return true;
+    if (!DataCheck()){
+      return false;
     }
     // DBコネクト
     return true;
+  }
+
+  private boolean DataCheck(){
+    Boolean flag = true;
+    if (viewStatus.getSyainID().equals("")) {flag = false;}
+    if (viewStatus.getPrimaryAddressST() == 0) {flag = false;}
+    if (viewStatus.getSecondaryAddressST() == 0) {flag = false;}
+    if (viewStatus.getStatusRegisterST() == 0){flag = false;}
+    if (viewStatus.getPositionST() == 0){flag = false;}
+    if (viewStatus.getLocationST() == 0){flag = false;}
+
+    String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
+    if (!viewStatus.getAddress().matches(mailFormat)){flag = false;}
+
+    if (viewStatus.getName().equals("")){flag = false;}
+    if (viewStatus.getLoginUser().equals("")){flag = false;}
+    return flag;
   }
 
 }

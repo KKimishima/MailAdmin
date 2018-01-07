@@ -15,6 +15,9 @@ public class ViewStatus {
   private String syainID;
   private String userName;
   private String bikou;
+  private String loginUser;
+  private String address;
+  private String name;
 
   public ViewStatus(){
     this.primaryAddressST = 0;
@@ -26,6 +29,9 @@ public class ViewStatus {
     this.syainID = null;
     this.userName = null;
     this.bikou = null;
+    this.loginUser = null;
+    this.address = null;
+    this.name = null;
   }
 
   public void cleanStatus(){
@@ -38,6 +44,21 @@ public class ViewStatus {
     this.syainID = null;
     this.userName = null;
     this.bikou = null;
+    this.loginUser = null;
+    this.address = null;
+    this.name = null;
+  }
+
+  public String getLoginUser() {
+    return loginUser;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public String getName() {
+    return name;
   }
 
   public String getUserName() {
@@ -77,6 +98,18 @@ public class ViewStatus {
     return statusRegisterST;
   }
 
+  public void setAddress(String address) {
+    this.address = StringTrim(address);
+  }
+
+  public void setName(String name) {
+    this.name = StringTrim(name);
+  }
+
+  public void setLoginUser(String loginUser) {
+    this.loginUser = StringTrim(loginUser);
+  }
+
   public void setLocationST(int locationST) {
     this.locationST = locationST;
   }
@@ -98,11 +131,11 @@ public class ViewStatus {
   }
 
   public void setUserName(String userName) {
-    this.userName = userName;
+    this.userName = StringTrim(userName);
   }
 
   public void setSyainID(String syainID) {
-    this.syainID = syainID;
+    this.syainID = StringTrim(syainID);
   }
 
   public void setBikou(String bikou) {
@@ -113,4 +146,7 @@ public class ViewStatus {
     this.registerEnum = registerEnum;
   }
 
+  private String StringTrim(String str){
+    return  str.trim().replaceAll("　","");
+  }
 }

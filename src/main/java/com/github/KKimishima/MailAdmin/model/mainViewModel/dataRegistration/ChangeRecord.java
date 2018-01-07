@@ -9,8 +9,7 @@ public class ChangeRecord extends DBRegisterDAO{
   }
 
   @Override
-  public Boolean DataCheck(ViewStatus viewStatus){
-    System.out.println("ChangeRedordのメソッド実行:trueで返す");
+  public Boolean DBConnect(ViewStatus viewStatus){
     return true;
   }
 

@@ -179,6 +179,9 @@ public class MainController implements Initializable{
     viewStatus.setSyainID(syainIDTex.getText());
     viewStatus.setUserName(UserNameTex.getText());
     viewStatus.setBikou(bikouTex.getText());
+    viewStatus.setAddress(addressTex.getText());
+    viewStatus.setName(nameTex.getText());
+    viewStatus.setLoginUser(loginUserTex.getText());
 
     DBRegisterInterFace dbRegisterInterFace = new RegisterType(viewStatus);
     if (!dbRegisterInterFace.Register()){
