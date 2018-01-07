@@ -15,6 +15,9 @@ public class ViewStatus {
   private String syainID;
   private String userName;
   private String bikou;
+  private String loginUser;
+  private String address;
+  private String name;
 
   public ViewStatus(){
     this.primaryAddressST = 0;
@@ -26,6 +29,9 @@ public class ViewStatus {
     this.syainID = null;
     this.userName = null;
     this.bikou = null;
+    this.loginUser = null;
+    this.address = null;
+    this.name = null;
   }
 
   public void cleanStatus(){
@@ -38,6 +44,21 @@ public class ViewStatus {
     this.syainID = null;
     this.userName = null;
     this.bikou = null;
+    this.loginUser = null;
+    this.address = null;
+    this.name = null;
+  }
+
+  public String getLoginUser() {
+    return loginUser;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public String getName() {
+    return name;
   }
 
   public String getUserName() {
@@ -75,6 +96,18 @@ public class ViewStatus {
 
   public int getStatusRegisterST() {
     return statusRegisterST;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setLoginUser(String loginUser) {
+    this.loginUser = loginUser;
   }
 
   public void setLocationST(int locationST) {
