@@ -188,22 +188,9 @@ public class MainController implements Initializable{
       Message message = new Message();
       message.ErrorMessge();
       return;
+    }else {
+      Message message = new Message();
+      message.SussedMessga();
     }
-
-    System.out.println("-- 変更可能な勤務地と役職の変更");
-    System.out.println("場所" + viewStatus.getLocationST());
-    System.out.println("役職" + viewStatus.getPositionST());
-    System.out.println("主アドレス" + viewStatus.getPrimaryAddressST());
-    System.out.println("複アドレス" + viewStatus.getSecondaryAddressST());
-    System.out.println("社員番号" + viewStatus.getSyainID());
-
-    System.out.println(" --登録情報系");
-    System.out.println("ユーザID" + viewStatus.getUserName());
-    System.out.println("登録状態" +viewStatus.getStatusRegisterST());
-    System.out.println("備考" + viewStatus.getBikou());
-
-    System.out.println("登録タイプ" + viewStatus.getRegisterEnum());
   }
-
-
 }

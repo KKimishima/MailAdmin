@@ -9,10 +9,16 @@ public abstract class DBRegisterDAO {
     this.viewStatus = viewStatus;
   }
 
-  public abstract Boolean DBConnect(ViewStatus viewStatus);
+  public abstract Boolean DBRegister(ViewStatus viewStatus);
 
   public Boolean Register(){
     if (!DataCheck()){
+      return false;
+    }
+    if (!jdbcLoad()){
+      return false;
+    }
+    if (!DBRegister(viewStatus)){
       return false;
     }
     // DBコネクト
@@ -35,5 +41,12 @@ public abstract class DBRegisterDAO {
     if (viewStatus.getLoginUser().equals("")){flag = false;}
     return flag;
   }
-
+  private Boolean jdbcLoad(){
+    try{
+      Class.forName("org.sqlite.JDBC");
+    }catch (ClassNotFoundException e){
+      return false;
+    }
+    return true;
+  }
 }

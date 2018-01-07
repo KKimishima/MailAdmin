@@ -14,7 +14,6 @@ public class RegisterType implements DBRegisterInterFace{
   }
 
   public Boolean Register(){
-    System.out.println("RegisterTypeの実行");
     if (viewStatus.getRegisterEnum().equals(DEFAULT)){
       return false;
     }

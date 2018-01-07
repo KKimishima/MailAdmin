@@ -31,6 +31,8 @@ from "statusRegister";
 select *
 from loginUser;
 
+select id from loginUser where userID = "0000";
+
 -- メインテーブル
 -- メールアドレス
 select *
