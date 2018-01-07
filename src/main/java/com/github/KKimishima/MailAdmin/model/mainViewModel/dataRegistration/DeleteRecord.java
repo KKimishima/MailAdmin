@@ -8,7 +8,7 @@ public class DeleteRecord extends DBRegisterDAO{
   }
 
   @Override
-  public Boolean DataCheck(ViewStatus viewStatus){
+  public Boolean DBConnect(ViewStatus viewStatus){
     System.out.println("DeleteRecordを実行trueを返す");
     return true;
   }

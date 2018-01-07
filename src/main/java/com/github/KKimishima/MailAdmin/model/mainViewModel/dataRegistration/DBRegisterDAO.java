@@ -9,14 +9,19 @@ public abstract class DBRegisterDAO {
     this.viewStatus = viewStatus;
   }
 
-  public abstract Boolean DataCheck(ViewStatus viewStatus);
+  public abstract Boolean DBConnect(ViewStatus viewStatus);
 
   public Boolean Register(){
     System.out.println("DBRegisterDAO実行:trueを返す");
-    if (DataCheck(viewStatus)){
+    if (DataCheck()){
       return true;
     }
     // DBコネクト
+    return true;
+  }
+
+  private boolean DataCheck(){
+    System.out.println("テストメソッド");
     return true;
   }
 
