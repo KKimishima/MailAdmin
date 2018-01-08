@@ -191,6 +191,16 @@ public class MainController implements Initializable{
     }else {
       Message message = new Message();
       message.SussedMessga();
+      refresh();
     }
+  }
+  public void onRefresh(){
+    refresh();
+  }
+  private void refresh(){
+    infoView.getItems().clear();
+    viewDataModel.cleanList();
+    viewDataModel.setList();
+    infoView.getItems().addAll(viewDataModel.getList());
   }
 }
