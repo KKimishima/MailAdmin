@@ -163,7 +163,7 @@ public class MainController implements Initializable{
     });
     statusCom.getItems().addAll(comboData.getStatusCom());
     statusCom.getSelectionModel().selectedIndexProperty().addListener((observable,oldVal,newVal) ->{
-      viewStatus.setPositionST(newVal.intValue() + 1);
+      viewStatus.setStatusRegisterST(newVal.intValue() + 1);
     });
   }
 

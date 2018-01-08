@@ -26,14 +26,16 @@ public class ChangeRecord extends DBRegisterDAO{
       syainUpdate.append("update syainInfo");
       syainUpdate.append("  set locationID = ?,");
       syainUpdate.append("      positionID = ?,");
-      syainUpdate.append("      primaryAddressID = ?");
+      syainUpdate.append("      primaryAddressID = ?,");
+      syainUpdate.append("      syainName = ?");
       syainUpdate.append("where syainID=?;");
 
       PreparedStatement smt1 = con.prepareStatement(syainUpdate.toString());
       smt1.setInt(1,viewStatus.getLocationST());
       smt1.setInt(2,viewStatus.getPositionST());
       smt1.setInt(3,viewStatus.getPrimaryAddressST());
-      smt1.setString(4,viewStatus.getSyainID());
+      smt1.setString(4,viewStatus.getName());
+      smt1.setString(5,viewStatus.getSyainID());
       smt1.executeUpdate();
       smt1.close();
 
