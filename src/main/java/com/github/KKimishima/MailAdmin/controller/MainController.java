@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.RegisterEnum.CHANGE;
+import static com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.RegisterEnum.DEL;
 
 public class MainController implements Initializable{
   // instance(シングルトン)
@@ -65,6 +66,8 @@ public class MainController implements Initializable{
   private  ComboBox<String> registerCom;
   @FXML
   private ComboBox<String> searchCom;
+  @FXML
+  private Button delBottun;
 
   private ObservableList<ViewData> data;
   private ViewDataModel viewDataModel;
@@ -130,6 +133,8 @@ public class MainController implements Initializable{
       viewStatus.setPrimaryAddressST(newVal.getPrimaryAddressID());
       viewStatus.setSecondaryAddressST(newVal.getSecondaryAddressID());
 
+      delBottun.setDisable(false);
+
     });
     infoView.getItems().addAll(viewDataModel.getList());
 
@@ -148,6 +153,7 @@ public class MainController implements Initializable{
         UserNameTex.setText("");
         positionCom.setValue("");
         viewStatus.cleanStatus();
+        delBottun.setDisable(true);
       }
     });
     searchCom.getItems().addAll(comboData.searchList());
@@ -194,6 +200,28 @@ public class MainController implements Initializable{
       refresh();
     }
   }
+
+  public void onDelBottun(){
+    Message message = new Message();
+
+    viewStatus.setRegisterEnum(DEL);
+    viewStatus.setSyainID(syainIDTex.getText());
+    viewStatus.setUserName(UserNameTex.getText());
+    viewStatus.setBikou(bikouTex.getText());
+    viewStatus.setAddress(addressTex.getText());
+    viewStatus.setName(nameTex.getText());
+    viewStatus.setLoginUser(loginUserTex.getText());
+
+    DBRegisterInterFace dbRegisterInterFace = new RegisterType(viewStatus);
+    if (!dbRegisterInterFace.Register()){
+      message.ErrorMessge();
+      return;
+    }else {
+      message.SussedMessga();
+      refresh();
+    }
+  }
+
   public void onRefresh(){
     refresh();
   }

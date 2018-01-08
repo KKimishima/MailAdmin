@@ -38,7 +38,7 @@
       <TextArea fx:id="bikouTex" layoutX="95.0" layoutY="625.0" prefHeight="129.0" prefWidth="404.0" />
       <Text layoutX="557.0" layoutY="599.0" strokeType="OUTSIDE" strokeWidth="0.0" text="登録状態" />
       <Text layoutX="557.0" layoutY="543.0" strokeType="OUTSIDE" strokeWidth="0.0" text="登録者" />
-      <Button layoutX="752.0" layoutY="720.0" mnemonicParsing="false" text="削除" />
+      <Button fx:id="delBottun" layoutX="752.0" layoutY="720.0" mnemonicParsing="false" onAction="#onDelBottun" text="削除" />
       <Text layoutX="29.0" layoutY="448.0" strokeType="OUTSIDE" strokeWidth="0.0" text="登録選択" />
       <ComboBox fx:id="searchCom" layoutX="112.0" layoutY="52.0" prefWidth="150.0" />
       <Text layoutX="67.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="検索" />
