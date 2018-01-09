@@ -28,7 +28,7 @@ public class NewRecord extends DBRegisterDAO{
       intoRegister.append("  statusRegisterID,");
       intoRegister.append("  bikou,");
       intoRegister.append("  registertime) ");
-      intoRegister.append("values(values((select id from loginUser where userID = ?),");
+      intoRegister.append("values((select id from loginUser where userID = ?),");
       intoRegister.append(" ?,?,datetime('now', 'localtime'));");
 
       PreparedStatement smt1 = con.prepareStatement(intoRegister.toString());
@@ -46,9 +46,9 @@ public class NewRecord extends DBRegisterDAO{
       intoAddress.append("  secondaryAddressID,");
       intoAddress.append("  address,");
       intoAddress.append("  registerID) ");
-      intoAddress.append("values((select MAX(primaryAddressID)) +1 from maillAddress,");
+      intoAddress.append("values((select MAX(primaryAddressID) +1 from maillAddress),");
       intoAddress.append("?,?,");
-      intoAddress.append("(select MAX(registerID) from register);");
+      intoAddress.append("(select MAX(registerID) from register));");
 
       PreparedStatement smt2 = con.prepareStatement(intoAddress.toString());
       smt2.setInt(1,1);
@@ -65,7 +65,7 @@ public class NewRecord extends DBRegisterDAO{
       intoSyain.append("  positionID,");
       intoSyain.append("  primaryAddressID) ");
       intoSyain.append("values(?,?,?,?,");
-      intoSyain.append("(select MAX(primaryAddressID)) +1 from maillAddress)");
+      intoSyain.append("(select MAX(primaryAddressID) from maillAddress));");
 
       PreparedStatement smt3 = con.prepareStatement(intoSyain.toString());
       smt3.setString(1,viewStatus.getSyainID());

@@ -16,7 +16,7 @@ from position;
 select "positionName"
 from position;
 
-
+select MAX(primaryAddressID) from maillAddress;
 -- 登録情報系
 -- 登録情報まとめ
 select *

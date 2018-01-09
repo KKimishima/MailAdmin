@@ -28,8 +28,8 @@ public abstract class DBRegisterDAO {
   private boolean DataCheck(){
     Boolean flag = true;
     if (viewStatus.getSyainID().equals("")) {flag = false;}
-    if (viewStatus.getPrimaryAddressST() == 0) {flag = false;}
-    if (viewStatus.getSecondaryAddressST() == 0) {flag = false;}
+    //if (viewStatus.getPrimaryAddressST() == 0) {flag = false;}
+    //if (viewStatus.getSecondaryAddressST() == 0) {flag = false;}
     if (viewStatus.getStatusRegisterST() == 0){flag = false;}
     if (viewStatus.getPositionST() == 0){flag = false;}
     if (viewStatus.getLocationST() == 0){flag = false;}

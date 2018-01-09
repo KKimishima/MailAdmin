@@ -17,7 +17,7 @@ public class NewRecordTest {
     viewStatus.setAddress("javajvaj@javaasdgf.com");
     viewStatus.setBikou("新規登録テスト");
     viewStatus.setUserName("test");
-    viewStatus.setSyainID("1234");
+    viewStatus.setSyainID("123rgeg4");
     viewStatus.setLocationST(1);
     viewStatus.setPositionST(1);
     viewStatus.setRegisterEnum(RegisterEnum.NEW);
@@ -25,7 +25,7 @@ public class NewRecordTest {
     viewStatus.setSecondaryAddressST(1);
     viewStatus.setStatusRegisterST(1);
 
-    DBRegisterDAO dbRegisterDAO = new ChangeRecord(viewStatus);
+    DBRegisterDAO dbRegisterDAO = new NewRecord(viewStatus);
     assertThat(dbRegisterDAO.Register(),is(true));
   }
 
