@@ -2,6 +2,11 @@
 -- 社員情報まとめ
 select *
 from "syainInfo";
+
+select syainID from "syainInfo"
+where "syainID" = "11114"
+
+select primaryAddressID from syainInfo where syainID = "11114"
 -- 勤務地
 select *
 from location;
