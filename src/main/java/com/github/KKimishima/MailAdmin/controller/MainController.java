@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 import static com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.RegisterEnum.CHANGE;
 import static com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.RegisterEnum.DEL;
+import static com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.RegisterEnum.SUBNEW;
 
 public class MainController implements Initializable{
   // instance(シングルトン)
@@ -142,18 +143,52 @@ public class MainController implements Initializable{
     registerCom.getItems().addAll(comboData.registList());
     registerCom.getSelectionModel().select(0);
     registerCom.getSelectionModel().selectedIndexProperty().addListener((observable,oldVal,newVal) ->{
-      if (newVal.intValue() == 1){
-        syainIDTex.setText("");
-        syainIDTex.setEditable(true);
-        addressTex.setText("");
-        nameTex.setText("");
-        bikouTex.setText("");
-        locationCom.setValue("");
-        statusCom.setValue("");
-        UserNameTex.setText("");
-        positionCom.setValue("");
-        viewStatus.cleanStatus();
-        delBottun.setDisable(true);
+      switch (newVal.intValue()){
+        case 0:
+          //syainIDTex.setEditable(false);
+          nameTex.setDisable(false);
+          locationCom.setDisable(false);
+          statusCom.setDisable(false);
+          positionCom.setDisable(false);
+          delBottun.setDisable(false);
+          break;
+        case 1:
+          nameTex.setDisable(false);
+          locationCom.setDisable(false);
+          statusCom.setDisable(false);
+          positionCom.setDisable(false);
+          delBottun.setDisable(false);
+
+          syainIDTex.setText("");
+          syainIDTex.setEditable(true);
+          addressTex.setText("");
+          nameTex.setText("");
+          bikouTex.setText("");
+          locationCom.setValue("");
+          statusCom.setValue("");
+          UserNameTex.setText("");
+          positionCom.setValue("");
+          viewStatus.cleanStatus();
+          delBottun.setDisable(true);
+          break;
+        case 2:
+          syainIDTex.setEditable(true);
+          syainIDTex.setText("");
+          addressTex.setText("");
+          bikouTex.setText("");
+          nameTex.setText("");
+          locationCom.setValue("");
+          statusCom.setValue("");
+          UserNameTex.setText("");
+          positionCom.setValue("");
+
+          nameTex.setDisable(true);
+          locationCom.setDisable(true);
+          statusCom.setDisable(true);
+          positionCom.setDisable(true);
+          delBottun.setDisable(true);
+          viewStatus.setRegisterEnum(SUBNEW);
+          break;
       }
     });
     searchCom.getItems().addAll(comboData.searchList());
@@ -188,6 +223,7 @@ public class MainController implements Initializable{
     viewStatus.setAddress(addressTex.getText());
     viewStatus.setName(nameTex.getText());
     viewStatus.setLoginUser(loginUserTex.getText());
+
 
     DBRegisterInterFace dbRegisterInterFace = new RegisterType(viewStatus);
     if (!dbRegisterInterFace.Register()){

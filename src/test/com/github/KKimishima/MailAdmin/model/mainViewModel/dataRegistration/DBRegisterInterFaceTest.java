@@ -12,7 +12,7 @@ public class DBRegisterInterFaceTest {
     viewStatus.setRegisterEnum(NEW);
 
     DBRegisterInterFace dbRegisterInterFace = new RegisterType(viewStatus);
-    dbRegisterInterFace.Register();
+//    dbRegisterInterFace.Register();
   }
 
 }
