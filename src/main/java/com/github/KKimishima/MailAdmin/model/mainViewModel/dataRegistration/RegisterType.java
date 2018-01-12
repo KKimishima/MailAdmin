@@ -26,6 +26,9 @@ public class RegisterType implements DBRegisterInterFace{
     }else if (viewStatus.getRegisterEnum().equals(DEL)){
       DBRegisterDAO dbRegisterDAO = new DeleteRecord(viewStatus);
       flag = dbRegisterDAO.Register();
+    }else if (viewStatus.getRegisterEnum().equals(SUBNEW)){
+      System.out.println("サブ実行成功");
+      flag = true;
     }
     return flag;
   }

@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 import static com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.RegisterEnum.CHANGE;
 import static com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.RegisterEnum.DEL;
+import static com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.RegisterEnum.SUBNEW;
 
 public class MainController implements Initializable{
   // instance(シングルトン)
@@ -184,6 +185,7 @@ public class MainController implements Initializable{
           statusCom.setDisable(true);
           positionCom.setDisable(true);
           delBottun.setDisable(true);
+          viewStatus.setRegisterEnum(SUBNEW);
           break;
       }
     });
@@ -219,6 +221,7 @@ public class MainController implements Initializable{
     viewStatus.setAddress(addressTex.getText());
     viewStatus.setName(nameTex.getText());
     viewStatus.setLoginUser(loginUserTex.getText());
+
 
     DBRegisterInterFace dbRegisterInterFace = new RegisterType(viewStatus);
     if (!dbRegisterInterFace.Register()){
