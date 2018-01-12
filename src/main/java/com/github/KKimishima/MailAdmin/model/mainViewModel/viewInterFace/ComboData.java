@@ -6,8 +6,9 @@ import javafx.collections.ObservableList;
 public class ComboData {
   public ObservableList<String> registList(){
     ObservableList<String> registData = FXCollections.observableArrayList(
-        "変更",
-        "新規"
+        "変更",   //1
+        "新規",           //2
+        "サブアドレス登録" //3
     );
     return registData;
   }

@@ -28,7 +28,7 @@
       <TextField fx:id="nameTex" layoutX="95.0" layoutY="532.0" />
       <TextField fx:id="addressTex" layoutX="95.0" layoutY="575.0" />
       <Button layoutX="630.0" layoutY="720.0" mnemonicParsing="false" onAction="#onRegister" text="登録" />
-      <ComboBox fx:id="registerCom" layoutX="96.0" layoutY="437.0" prefHeight="27.0" prefWidth="100.0" />
+      <ComboBox fx:id="registerCom" layoutX="96.0" layoutY="437.0" prefHeight="27.0" prefWidth="167.0" />
       <Text layoutX="310.0" layoutY="543.0" strokeType="OUTSIDE" strokeWidth="0.0" text="勤務地" />
       <ComboBox fx:id="statusCom" layoutX="630.0" layoutY="581.0" prefWidth="150.0" />
       <ComboBox fx:id="locationCom" layoutX="371.0" layoutY="525.0" prefWidth="150.0" />

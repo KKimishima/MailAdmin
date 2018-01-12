@@ -142,18 +142,49 @@ public class MainController implements Initializable{
     registerCom.getItems().addAll(comboData.registList());
     registerCom.getSelectionModel().select(0);
     registerCom.getSelectionModel().selectedIndexProperty().addListener((observable,oldVal,newVal) ->{
-      if (newVal.intValue() == 1){
-        syainIDTex.setText("");
-        syainIDTex.setEditable(true);
-        addressTex.setText("");
-        nameTex.setText("");
-        bikouTex.setText("");
-        locationCom.setValue("");
-        statusCom.setValue("");
-        UserNameTex.setText("");
-        positionCom.setValue("");
-        viewStatus.cleanStatus();
-        delBottun.setDisable(true);
+      switch (newVal.intValue()){
+        case 0:
+          nameTex.setDisable(false);
+          locationCom.setDisable(false);
+          statusCom.setDisable(false);
+          positionCom.setDisable(false);
+          delBottun.setDisable(false);
+          break;
+        case 1:
+          nameTex.setDisable(false);
+          locationCom.setDisable(false);
+          statusCom.setDisable(false);
+          positionCom.setDisable(false);
+          delBottun.setDisable(false);
+
+          syainIDTex.setText("");
+          syainIDTex.setEditable(true);
+          addressTex.setText("");
+          nameTex.setText("");
+          bikouTex.setText("");
+          locationCom.setValue("");
+          statusCom.setValue("");
+          UserNameTex.setText("");
+          positionCom.setValue("");
+          viewStatus.cleanStatus();
+          delBottun.setDisable(true);
+          break;
+        case 2:
+          syainIDTex.setText("");
+          addressTex.setText("");
+          bikouTex.setText("");
+          nameTex.setText("");
+          locationCom.setValue("");
+          statusCom.setValue("");
+          UserNameTex.setText("");
+          positionCom.setValue("");
+
+          nameTex.setDisable(true);
+          locationCom.setDisable(true);
+          statusCom.setDisable(true);
+          positionCom.setDisable(true);
+          delBottun.setDisable(true);
+          break;
       }
     });
     searchCom.getItems().addAll(comboData.searchList());
