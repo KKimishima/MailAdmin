@@ -31,6 +31,16 @@
                 </execution>
                 </executions>
     </plugin>
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>8.6.0</version>
+                <configuration>
+                    <mainClass>App</mainClass>
+                    <identifier></identifier>
+                    <vendor>KKimihsima</vendor>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>com.zenjava</groupId>

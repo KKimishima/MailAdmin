@@ -2,12 +2,9 @@ package com.github.KKimishima.MailAdmin.controller;
 
 import com.github.KKimishima.MailAdmin.app.App;
 import com.github.KKimishima.MailAdmin.model.loginModel.LoginADO;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.*;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.ComboBox.ComboData;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.ComboBox.ComboDataADO;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.SelectItem;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.TableViewADO;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.ViewRecord;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.dataRegistration.DBRegisterInterFace;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.dataRegistration.RegisterType;
+import com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,6 +21,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.RegisterEnum.CHANGE;
+import static com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.RegisterEnum.DEL;
+import static com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.RegisterEnum.SUBNEW;
+
 public class MainController implements Initializable{
   // instance(シングルトン)
   private static MainController instance;
@@ -31,23 +32,23 @@ public class MainController implements Initializable{
   private static Scene SCENE;
 
   @FXML
-  private TableView<ViewRecord> infoView;
+  private TableView<ViewData> infoView;
   @FXML
-  private TableColumn<ViewRecord,String> syainIDColumn;
+  private TableColumn<ViewData,String> syainIDColumn;
   @FXML
-  private TableColumn<ViewRecord,String> syainNameColumn;
+  private TableColumn<ViewData,String> syainNameColumn;
   @FXML
-  private TableColumn<ViewRecord,String> addressColumn;
+  private TableColumn<ViewData,String> addressColumn;
   @FXML
-  private TableColumn<ViewRecord,String> registerColumn;
+  private TableColumn<ViewData,String> registerColumn;
   @FXML
-  private TableColumn<ViewRecord,String> statusColumn;
+  private TableColumn<ViewData,String> statusColumn;
   @FXML
-  private TableColumn<ViewRecord,String> UserNameColumn;
+  private TableColumn<ViewData,String> UserNameColumn;
   @FXML
   private Text loginUserTex;
   @FXML
-  private Text syainIDTex;
+  private TextField syainIDTex;
   @FXML
   private TextField addressTex;
   @FXML
@@ -62,10 +63,18 @@ public class MainController implements Initializable{
   private Text UserNameTex;
   @FXML
   private ComboBox<String> positionCom;
+  @FXML
+  private  ComboBox<String> registerCom;
+  @FXML
+  private ComboBox<String> searchCom;
+  @FXML
+  private Button delBottun;
 
-  private ObservableList<ViewRecord> data;
-  private MainViewModel mainViewModel;
-  private ArrayList<SelectItem> list;
+  private ObservableList<ViewData> data;
+  private ViewDataModel viewDataModel;
+  private ArrayList<ViewData> list;
+  private ComboData comboData;
+  private ViewStatus viewStatus;
 
   // 画面生成
   // クラスが読み込まれ時に実行
@@ -86,46 +95,117 @@ public class MainController implements Initializable{
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     loginUserTex.setText(LoginADO.getUserID());
-    mainViewModel = new TableViewADO();
-    list = mainViewModel.selectTableView();
+    viewDataModel = new ViewDataDataADO();
+    viewDataModel.setList();
+    list = viewDataModel.getList();
 
     data = FXCollections.observableArrayList();
     infoView.setItems(data);
-    syainIDColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("syainIDCol"));
-    syainNameColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("syainNameCol"));
-    addressColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("addressCol"));
-    registerColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("registerCol"));
-    statusColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("statusCol"));
-    UserNameColumn.setCellValueFactory(new PropertyValueFactory<ViewRecord, String>("UserNameCol"));
+    syainIDColumn.setCellValueFactory(new PropertyValueFactory<ViewData, String>("syainIDCol"));
+    syainNameColumn.setCellValueFactory(new PropertyValueFactory<ViewData, String>("syainNameCol"));
+    addressColumn.setCellValueFactory(new PropertyValueFactory<ViewData, String>("addressCol"));
+    registerColumn.setCellValueFactory(new PropertyValueFactory<ViewData, String>("registerCol"));
+    statusColumn.setCellValueFactory(new PropertyValueFactory<ViewData, String>("statusCol"));
+    UserNameColumn.setCellValueFactory(new PropertyValueFactory<ViewData, String>("UserNameCol"));
 
+    viewStatus = new ViewStatus();
     infoView.getSelectionModel().selectedItemProperty().addListener((observable,oldVal,newVal) ->{
       //nullが出たら脱出
       if (newVal == null){return;}
       syainIDTex.setText(newVal.getSyainIDCol());
+      syainIDTex.setEditable(false);
       addressTex.setText(newVal.getAddressCol());
       nameTex.setText(newVal.getSyainNameCol());
       bikouTex.setText(newVal.getBikouCol());
       locationCom.setValue(newVal.getLocationCol());
+      viewStatus.setLocationST(newVal.getLocationID());
+
       statusCom.setValue(newVal.getStatusCol());
+      viewStatus.setStatusRegisterST(newVal.getStatusRegister());
+
       UserNameTex.setText(newVal.getUserNameCol());
+
       positionCom.setValue(newVal.getPositonCol());
+      viewStatus.setPositionST(newVal.getPositionID());
+
+      registerCom.getSelectionModel().select(0);
+      viewStatus.setRegisterEnum(CHANGE);
+
+      viewStatus.setPrimaryAddressST(newVal.getPrimaryAddressID());
+      viewStatus.setSecondaryAddressST(newVal.getSecondaryAddressID());
+
+      delBottun.setDisable(false);
 
     });
-    for (SelectItem s:list) {
-      infoView.getItems().add(new ViewRecord(
-          s.getSyainID(),
-          s.getSyainName(),
-          s.getAddress(),
-          s.getRegisterTime(),
-          s.getStatusName(),
-          s.getUserName(),
-          s.getBikou(),
-          s.getLocationName(),
-          s.getPositionName()
-      ));
-    }
-    ComboDataADO comboDataADO = new ComboDataADO();
-    locationCom.getItems().addAll(comboDataADO.selectLocation());
+    infoView.getItems().addAll(viewDataModel.getList());
+
+    comboData = new ComboData();
+    registerCom.getItems().addAll(comboData.registList());
+    registerCom.getSelectionModel().select(0);
+    registerCom.getSelectionModel().selectedIndexProperty().addListener((observable,oldVal,newVal) ->{
+      switch (newVal.intValue()){
+        case 0:
+          //syainIDTex.setEditable(false);
+          nameTex.setDisable(false);
+          locationCom.setDisable(false);
+          statusCom.setDisable(false);
+          positionCom.setDisable(false);
+          delBottun.setDisable(false);
+          break;
+        case 1:
+          nameTex.setDisable(false);
+          locationCom.setDisable(false);
+          statusCom.setDisable(false);
+          positionCom.setDisable(false);
+          delBottun.setDisable(false);
+
+          syainIDTex.setText("");
+          syainIDTex.setEditable(true);
+          addressTex.setText("");
+          nameTex.setText("");
+          bikouTex.setText("");
+          locationCom.setValue("");
+          statusCom.setValue("");
+          UserNameTex.setText("");
+          positionCom.setValue("");
+          viewStatus.cleanStatus();
+          delBottun.setDisable(true);
+          break;
+        case 2:
+          syainIDTex.setEditable(true);
+          syainIDTex.setText("");
+          addressTex.setText("");
+          bikouTex.setText("");
+          nameTex.setText("");
+          locationCom.setValue("");
+          statusCom.setValue("");
+          UserNameTex.setText("");
+          positionCom.setValue("");
+
+          nameTex.setDisable(true);
+          locationCom.setDisable(true);
+          statusCom.setDisable(true);
+          positionCom.setDisable(true);
+          delBottun.setDisable(true);
+          viewStatus.setRegisterEnum(SUBNEW);
+          break;
+      }
+    });
+    searchCom.getItems().addAll(comboData.searchList());
+
+    locationCom.getItems().addAll(comboData.getLocationCom());
+    locationCom.getSelectionModel().selectedIndexProperty().addListener((observable,oldVal,newVal) -> {
+      viewStatus.setLocationST(newVal.intValue() + 1);
+    });
+
+    positionCom.getItems().addAll(comboData.getPositionCom());
+    positionCom.getSelectionModel().selectedIndexProperty().addListener((observable,oldVal,newVal) ->{
+      viewStatus.setPositionST(newVal.intValue() + 1);
+    });
+    statusCom.getItems().addAll(comboData.getStatusCom());
+    statusCom.getSelectionModel().selectedIndexProperty().addListener((observable,oldVal,newVal) ->{
+      viewStatus.setStatusRegisterST(newVal.intValue() + 1);
+    });
   }
 
   // instance(シングルトン)を返す
@@ -137,6 +217,54 @@ public class MainController implements Initializable{
     App.presentStage.setScene(SCENE);
   }
   public void onRegister(){
-    System.out.println("登録ボタンが押されました");
+    viewStatus.setSyainID(syainIDTex.getText());
+    viewStatus.setUserName(UserNameTex.getText());
+    viewStatus.setBikou(bikouTex.getText());
+    viewStatus.setAddress(addressTex.getText());
+    viewStatus.setName(nameTex.getText());
+    viewStatus.setLoginUser(loginUserTex.getText());
+
+
+    DBRegisterInterFace dbRegisterInterFace = new RegisterType(viewStatus);
+    if (!dbRegisterInterFace.Register()){
+      Message message = new Message();
+      message.ErrorMessge();
+      return;
+    }else {
+      Message message = new Message();
+      message.SussedMessga();
+      refresh();
+    }
+  }
+
+  public void onDelBottun(){
+    Message message = new Message();
+
+    viewStatus.setRegisterEnum(DEL);
+    viewStatus.setSyainID(syainIDTex.getText());
+    viewStatus.setUserName(UserNameTex.getText());
+    viewStatus.setBikou(bikouTex.getText());
+    viewStatus.setAddress(addressTex.getText());
+    viewStatus.setName(nameTex.getText());
+    viewStatus.setLoginUser(loginUserTex.getText());
+
+    DBRegisterInterFace dbRegisterInterFace = new RegisterType(viewStatus);
+    if (!dbRegisterInterFace.Register()){
+      message.ErrorMessge();
+      return;
+    }else {
+      message.SussedMessga();
+      refresh();
+    }
+  }
+
+  public void onRefresh(){
+    refresh();
+  }
+  private void refresh(){
+    infoView.getItems().clear();
+    viewDataModel.cleanList();
+    viewDataModel.setList();
+    infoView.getItems().addAll(viewDataModel.getList());
   }
 }

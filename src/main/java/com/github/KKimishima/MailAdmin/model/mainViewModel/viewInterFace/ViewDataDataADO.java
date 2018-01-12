@@ -1,15 +1,30 @@
-package com.github.KKimishima.MailAdmin.model.mainViewModel.tableView;
-
-import com.github.KKimishima.MailAdmin.model.mainViewModel.MainViewModel;
-import com.github.KKimishima.MailAdmin.model.mainViewModel.tableView.SelectItem;
+package com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class TableViewADO implements MainViewModel {
 
-  public ArrayList<SelectItem> selectTableView() {
-    ArrayList<SelectItem> list = new ArrayList<>();
+public class ViewDataDataADO implements ViewDataModel {
+  private ArrayList<ViewData> list;
+
+  public ViewDataDataADO(){
+    this.list = new ArrayList<>();
+  }
+
+  @Override
+  public ArrayList<ViewData> getList() {
+    return list;
+  }
+
+  @Override
+  public  void cleanList(){
+    this.list.clear();
+  }
+
+  @Override
+  public void setList() {
+    ArrayList<ViewData> list = new ArrayList<>();
+
     try{
       Class.forName("org.sqlite.JDBC");
     }catch (ClassNotFoundException e){
@@ -26,15 +41,20 @@ public class TableViewADO implements MainViewModel {
               "    syainID,\n" +
               "    syainName,\n" +
               "    -- locationテーブル\n" +
+              "    location.locationID,\n"+
               "    \"locationName\",\n" +
               "    -- positionテーブル\n" +
+              "    position.positionID,\n" +
               "    positionName,\n" +
               "    -- maillAdressテーブル\n" +
               "    address,\n" +
+              "    \"maillAddress\".\"primaryAddressID\",\n"+
+              "    secondaryAddressID,\n" +
               "    -- register\"テーブル\n" +
               "    registerTime,\n" +
               "    bikou,\n" +
               "    -- statusRegisterテーブル\n" +
+              "    statusRegister.statusRegisterID,\n"+
               "    \"statusName\",\n" +
               "    -- loginUserテーブル\n" +
               "    userName,\n" +
@@ -63,7 +83,12 @@ public class TableViewADO implements MainViewModel {
       );
       ResultSet rs = ps.executeQuery();
       while (rs.next()){
-        list.add(new SelectItem(
+        list.add(new ViewData(
+            rs.getInt("primaryAddressID"),
+            rs.getInt("secondaryAddressID"),
+            rs.getInt("locationID"),
+            rs.getInt("positionID"),
+            rs.getInt("statusRegisterID"),
             rs.getString("syainID"),
             rs.getString("syainName"),
             rs.getString("locationName"),
@@ -76,6 +101,7 @@ public class TableViewADO implements MainViewModel {
             rs.getString("userName")
         ));
       }
+
     }catch (SQLException e){
       e.printStackTrace();
     }finally {
@@ -85,6 +111,6 @@ public class TableViewADO implements MainViewModel {
         }catch (SQLException e){}
       }
     }
-    return list;
+   this.list = list;
   }
 }

@@ -2,6 +2,11 @@
 -- 社員情報まとめ
 select *
 from "syainInfo";
+
+select syainID from "syainInfo"
+where "syainID" = "11114"
+
+select primaryAddressID from syainInfo where syainID = "11114"
 -- 勤務地
 select *
 from location;
@@ -16,7 +21,7 @@ from position;
 select "positionName"
 from position;
 
-
+select MAX(primaryAddressID) from maillAddress;
 -- 登録情報系
 -- 登録情報まとめ
 select *
@@ -30,6 +35,8 @@ from "statusRegister";
 -- ログインユーザ
 select *
 from loginUser;
+
+select id from loginUser where userID = "0000";
 
 -- メインテーブル
 -- メールアドレス
@@ -63,15 +70,20 @@ select
     syainID,
     syainName,
     -- locationテーブル
+    location.locationID,
     "locationName",
     -- positionテーブル
     positionName,
+    position."positionID"
     -- maillAdressテーブル
     address,
+    "maillAddress"."primaryAddressID",
+    secondaryAddressID,
     -- register"テーブル
     registerTime,
     bikou,
     -- statusRegisterテーブル
+    statusRegister."statusRegisterID"
     "statusName",
     -- loginUserテーブル
     userName,
