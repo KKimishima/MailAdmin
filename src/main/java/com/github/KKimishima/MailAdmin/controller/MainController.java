@@ -145,6 +145,7 @@ public class MainController implements Initializable{
     registerCom.getSelectionModel().selectedIndexProperty().addListener((observable,oldVal,newVal) ->{
       switch (newVal.intValue()){
         case 0:
+          //syainIDTex.setEditable(false);
           nameTex.setDisable(false);
           locationCom.setDisable(false);
           statusCom.setDisable(false);
@@ -171,6 +172,7 @@ public class MainController implements Initializable{
           delBottun.setDisable(true);
           break;
         case 2:
+          syainIDTex.setEditable(true);
           syainIDTex.setText("");
           addressTex.setText("");
           bikouTex.setText("");

@@ -4,19 +4,18 @@ import com.github.KKimishima.MailAdmin.model.mainViewModel.viewInterFace.ViewSta
 
 import java.sql.*;
 
-public class NewRecord extends DBRegisterDAO{
+public class SubNewRecord extends DBRegisterDAO{
 
-  public NewRecord(ViewStatus viewStatus){
+  public SubNewRecord(ViewStatus viewStatus){
     super(viewStatus);
   }
 
   @Override
-  public Boolean DBRegister(ViewStatus viewStatus){
-    if (CheckSyainID(viewStatus)){
+  public Boolean DBRegister(ViewStatus viewStatus) {
+    if (!CheckSyainID(viewStatus)){
       return false;
-    }else {
-      return primaryAddress(viewStatus);
     }
+    return SubAddresRegister(viewStatus);
   }
 
   private Boolean CheckSyainID(ViewStatus viewStatus) {
@@ -54,10 +53,9 @@ public class NewRecord extends DBRegisterDAO{
     return flag;
   }
 
-  private Boolean  primaryAddress(ViewStatus viewStatus){
+  private Boolean SubAddresRegister(ViewStatus viewStatus){
     Connection con = null;
     try{
-
       con = DriverManager.getConnection("jdbc:sqlite::resource:db/db.sqlite3");
       con.setAutoCommit(false);
 
@@ -86,35 +84,16 @@ public class NewRecord extends DBRegisterDAO{
       intoAddress.append("  secondaryAddressID,");
       intoAddress.append("  address,");
       intoAddress.append("  registerID) ");
-      intoAddress.append("values((select MAX(primaryAddressID) +1 from maillAddress),");
-      intoAddress.append("?,?,");
+      intoAddress.append("values((select primaryAddressID from syainInfo where syainID = ?),");
+      intoAddress.append("(select MAX(secondaryAddressID) +1 from maillAddress),");
+      intoAddress.append("?,");
       intoAddress.append("(select MAX(registerID) from register));");
 
       PreparedStatement smt2 = con.prepareStatement(intoAddress.toString());
-      smt2.setInt(1,1);
+      smt2.setString(1,viewStatus.getSyainID());
       smt2.setString(2,viewStatus.getAddress());
       smt2.executeUpdate();
       smt2.close();
-
-      // 社員登録
-      StringBuffer intoSyain = new StringBuffer();
-      intoSyain.append("insert into syainInfo(");
-      intoSyain.append("  syainID,");
-      intoSyain.append("  syainName,");
-      intoSyain.append("  locationID,");
-      intoSyain.append("  positionID,");
-      intoSyain.append("  primaryAddressID) ");
-      intoSyain.append("values(?,?,?,?,");
-      intoSyain.append("(select MAX(primaryAddressID) from maillAddress));");
-
-      PreparedStatement smt3 = con.prepareStatement(intoSyain.toString());
-      smt3.setString(1,viewStatus.getSyainID());
-      smt3.setString(2,viewStatus.getName());
-      smt3.setInt(3,viewStatus.getLocationST());
-      smt3.setInt(4,viewStatus.getPositionST());
-      smt3.executeUpdate();
-      smt3.close();
-
       con.commit();
     }catch (SQLException e){
       e.printStackTrace();
